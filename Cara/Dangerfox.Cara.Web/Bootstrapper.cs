@@ -54,6 +54,10 @@ namespace Dangerfox.Cara.Web
             nancyConventions.StaticContentsConventions.Add(
                 StaticContentConventionBuilder.AddDirectory("scripts", "scripts")
             );
+
+            nancyConventions.StaticContentsConventions.Add(
+                StaticContentConventionBuilder.AddDirectory("assets", "assets")
+            );
         }
     }
 }

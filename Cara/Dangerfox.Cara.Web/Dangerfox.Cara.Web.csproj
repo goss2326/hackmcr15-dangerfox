@@ -144,9 +144,15 @@
     <Compile Include="Modules\HomeModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Folder Include="assets\sprites\" />
+    <Folder Include="assets\tilesets\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="scripts\source\Components\Character.ts" />
+    <TypeScriptCompile Include="scripts\source\GameStates\InPlay.ts" />
     <TypeScriptCompile Include="scripts\source\program.ts" />
+    <TypeScriptCompile Include="scripts\source\Support\Direction.ts" />
     <TypeScriptCompile Include="scripts\typings\phaser\p2.d.ts" />
     <TypeScriptCompile Include="scripts\typings\phaser\phaser.comments.d.ts" />
     <TypeScriptCompile Include="scripts\typings\phaser\pixi.comments.d.ts" />
