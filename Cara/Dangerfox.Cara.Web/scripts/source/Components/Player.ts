@@ -4,7 +4,7 @@
     {
         constructor(game: Phaser.Game)
         {
-            super(game, "player", 32.0);
+            super(game, "player", 64.0, 100);
         }
 
         public preload(spritesheet: string, spriteWidth: number, spriteHeight: number)
@@ -29,12 +29,12 @@
         private processInput()
         {
             var input: boolean = false;
-            var attacking: boolean = false;
+            this.attacking = false;
 
             if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
             {
                 input = true;
-                attacking = true;
+                this.attacking = true;
             }
 
             // process input to change player direction
@@ -44,11 +44,6 @@
 
                 this.direction = Support.Direction.Left;
                 this.move(this.direction);
-
-                if (!attacking)
-                {
-                    this.sprite.animations.play("move-" + Support.Direction.Left.toString());
-                }
             }
             else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
             {
@@ -56,11 +51,6 @@
 
                 this.direction = Support.Direction.Right;
                 this.move(this.direction);
-
-                if (!attacking)
-                {
-                    this.sprite.animations.play("move-" + Support.Direction.Right.toString());
-                }
             }
             else if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN))
             {
@@ -68,11 +58,6 @@
 
                 this.direction = Support.Direction.Down;
                 this.move(this.direction);
-
-                if (!attacking)
-                {
-                    this.sprite.animations.play("move-" + Support.Direction.Down.toString());
-                }
             }
             else if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP))
             {
@@ -80,14 +65,9 @@
 
                 this.direction = Support.Direction.Up;
                 this.move(this.direction);
-
-                if (!attacking)
-                {
-                    this.sprite.animations.play("move-" + Support.Direction.Up.toString());
-                }
             }
 
-            if (attacking)
+            if (this.attacking)
             {
                 switch (this.direction)
                 {
@@ -105,6 +85,27 @@
 
                     case Support.Direction.Up:
                         this.sprite.animations.play("attack-" + Support.Direction.Up.toString());
+                        break;
+                }
+            }
+            else if (input)
+            {
+                switch (this.direction)
+                {
+                    case Support.Direction.Right:
+                        this.sprite.animations.play("move-" + Support.Direction.Right.toString());
+                        break;
+
+                    case Support.Direction.Down:
+                        this.sprite.animations.play("move-" + Support.Direction.Down.toString());
+                        break;
+
+                    case Support.Direction.Left:
+                        this.sprite.animations.play("move-" + Support.Direction.Left.toString());
+                        break;
+
+                    case Support.Direction.Up:
+                        this.sprite.animations.play("move-" + Support.Direction.Up.toString());
                         break;
                 }
             }

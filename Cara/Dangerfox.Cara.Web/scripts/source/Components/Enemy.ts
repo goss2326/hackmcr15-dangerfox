@@ -4,7 +4,7 @@
     {
         constructor(game: Phaser.Game)
         {
-            super(game, "enemy", 32.0);
+            super(game, "enemy", 64.0, 300);
         }
 
         public preload(spritesheet: string, spriteWidth: number, spriteHeight: number)

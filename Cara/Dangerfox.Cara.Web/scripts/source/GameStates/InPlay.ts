@@ -55,6 +55,19 @@
 
                 enemy.update();
 
+                if (this.game.physics.arcade.overlap(this.player.sprite, enemy.sprite))
+                {
+                    if (this.player.attacking)
+                    {
+                        enemy.takeDamage(5);
+                    }
+
+                    if (enemy.attacking)
+                    {
+                        this.player.takeDamage(5);
+                    }
+                }
+
                 this.game.physics.arcade.collide(this.player.sprite, enemy.sprite);
             }
         }
