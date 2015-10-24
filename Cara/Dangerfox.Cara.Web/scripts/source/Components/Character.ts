@@ -3,7 +3,7 @@
     export abstract class Character
     {
         protected direction: Support.Direction;
-        protected sprite: Phaser.Sprite;
+        public sprite: Phaser.Sprite;
 
         constructor(protected game: Phaser.Game, private spriteKey: string, private movementSpeed: number)
         {
@@ -23,7 +23,7 @@
         protected create(
             startPosition: Phaser.Point,
             spriteScale: Phaser.Point,
-            direction: Support.Direction)
+            spriteData: any)
         {
             // create the sprite
             this.sprite = this.game.add.sprite(
@@ -33,11 +33,42 @@
             );
 
             this.sprite.scale = spriteScale;
-            this.direction = direction;
+
+            // animations
+            var animations = spriteData.animations;
+
+            this.sprite.animations.add("move-" + Support.Direction.Right.toString(), animations.moveRight, animations.moveFps, true);
+            this.sprite.animations.add("move-" + Support.Direction.Down.toString(), animations.moveDown, animations.moveFps, true);
+            this.sprite.animations.add("move-" + Support.Direction.Left.toString(), animations.moveLeft, animations.moveFps, true);
+            this.sprite.animations.add("move-" + Support.Direction.Up.toString(), animations.moveUp, animations.moveFps, true);
+
+            this.sprite.animations.add("idle-" + Support.Direction.Right.toString(), animations.idleRight, animations.idleFps, true);
+            this.sprite.animations.add("idle-" + Support.Direction.Down.toString(), animations.idleDown, animations.idleFps, true);
+            this.sprite.animations.add("idle-" + Support.Direction.Left.toString(), animations.idleLeft, animations.idleFps, true);
+            this.sprite.animations.add("idle-" + Support.Direction.Up.toString(), animations.idleUp, animations.idleFps, true);
+
+            this.sprite.animations.add("attack-" + Support.Direction.Right.toString(), animations.attackRight, animations.attackFps, true);
+            this.sprite.animations.add("attack-" + Support.Direction.Down.toString(), animations.attackDown, animations.attackFps, true);
+            this.sprite.animations.add("attack-" + Support.Direction.Left.toString(), animations.attackLeft, animations.attackFps, true);
+            this.sprite.animations.add("attack-" + Support.Direction.Up.toString(), animations.attackUp, animations.attackFps, true);
+
+            // play default
+            this.sprite.animations.play("idle-" + Support.Direction.Down.toString());
 
             // configure physics
-            this.game.physics.enable(this.sprite);
+            this.game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
             this.sprite.body.collideWorldBounds = true;
+
+            // setup bounding box
+            var physics = spriteData.physics;
+            var boundingBox = physics.boundingBox;
+
+            this.sprite.body.setSize(
+                boundingBox.width,
+                boundingBox.height,
+                boundingBox.offsetX,
+                boundingBox.offsetY
+            );
         }
 
         protected move(direction: Support.Direction)
