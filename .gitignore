@@ -156,3 +156,6 @@ $RECYCLE.BIN/
 .DS_Store
 
 applicationhost.config
+
+game.js
+game.js.map

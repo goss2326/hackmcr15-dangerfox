@@ -4,10 +4,14 @@
     {
         private player: Components.Player;
         private enemies: Array<Components.Enemy>;
+        private map: Components.Map;
 
         public preload()
         {
             this.game.load.json("knight-data", "../../assets/data/firetroll.json");
+
+            this.map = new Components.Map(this.game);
+            this.map.preload();
 
             this.player = new Components.Player(this.game);
             this.player.preload("../../assets/sprites/firetroll.png", 96, 96);
@@ -28,6 +32,8 @@
             // Setup the physics system
             this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
+            this.map.create();
+
             // create the player
             var knightData = this.game.cache.getJSON("knight-data");
             this.player.create(knightData);
@@ -35,7 +41,7 @@
             // create the enemies
             for (var i: number = 0; i < this.enemies.length; ++i)
             {
-                this.enemies[i].create(knightData, new Phaser.Point(100, 100));
+                this.enemies[i].create(knightData, new Phaser.Point(500, 200));
             }
         }
 
@@ -47,9 +53,7 @@
             {
                 var enemy = this.enemies[i];
 
-                enemy.update();
-
-                this.game.physics.arcade.collide(this.player.sprite, enemy.sprite);
+                enemy.update(this.player);
             }
         }
     }
