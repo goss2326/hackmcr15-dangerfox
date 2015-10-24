@@ -49,11 +49,14 @@
 
         public update()
         {
+            this.game.physics.arcade.collide(this.player.sprite, this.map.layerBase);
+
             this.player.update();
 
             for (var i: number = 0; i < this.enemies.length; ++i)
             {
                 var enemy = this.enemies[i];
+                this.game.physics.arcade.collide(enemy.sprite, this.map.layerBase);
 
                 enemy.update(this.player);
             }
