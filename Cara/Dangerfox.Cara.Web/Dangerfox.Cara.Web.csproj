@@ -125,6 +125,7 @@
     <Content Include="assets\data\mage.json" />
     <Content Include="assets\data\icetroll.json" />
     <Content Include="assets\data\firetroll.json" />
+    <Content Include="assets\data\dragon.json" />
     <None Include="scripts\lib\jquery\jquery-2.1.4.intellisense.js" />
     <Content Include="scripts\lib\jquery\jquery-2.1.4.js" />
     <Content Include="scripts\lib\jquery\jquery-2.1.4.min.js" />

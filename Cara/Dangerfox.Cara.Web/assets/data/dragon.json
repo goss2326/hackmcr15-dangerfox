@@ -1,0 +1,36 @@
+﻿{
+  "spritesheet": "../../assets/sprites/dragon.png",
+  "spriteWidth": 96,
+  "spirteHeight": 96,
+
+  "physics": {
+    "boundingBox": {
+      "width": 32,
+      "height": 80,
+      "offsetX": 32,
+      "offsetY": 16
+    }
+  },
+
+  "animations": {
+        "moveFps": 7,
+        "moveRight": [ 48, 49, 50, 51, 52, 53, 54, 55, 56 ],
+        "moveLeft": [ 84, 85, 86, 87, 88, 89, 90, 91, 92 ],
+        "moveUp": [ 60, 61, 62, 63, 64, 65, 66, 67, 68 ],
+        "moveDown": [ 72, 73, 74, 75, 76, 77, 78, 79, 80 ],
+
+        "idleFps": 3,
+        "idleRight": [ 96, 97, 98, 99, 100, 101, 102, 103, 104 ],
+        "idleLeft": [ 132, 133, 134, 135, 136, 137, 138, 139, 140 ],
+        "idleUp": [ 108, 109, 110, 111, 112, 113, 114, 115, 116 ],
+        "idleDown": [ 120, 121, 122, 123, 124, 125, 126, 127, 128 ],
+
+        "attackFps": 26,
+        "attackRight": [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ],
+        "attackLeft": [ 36, 37, 38, 39, 40, 41, 42, 43, 44 ],
+        "attackUp": [ 12, 13, 14, 15, 16, 17, 18, 19, 20 ],
+        "attackDown": [ 24, 25, 26, 27, 28, 29, 30, 31, 32 ]
+    }
+
+}
+
