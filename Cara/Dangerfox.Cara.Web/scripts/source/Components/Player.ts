@@ -18,12 +18,13 @@
 
         public create(
             health: number,
+            baseDamage: number,
             movementSpeed: number,
             direction: Support.Direction,
             startPosition: Phaser.Point,
             spriteData: any)
         {
-            super.create(health, movementSpeed, direction, startPosition, spriteData);
+            super.create(health, baseDamage, movementSpeed, direction, startPosition, spriteData);
         }
 
         public update()

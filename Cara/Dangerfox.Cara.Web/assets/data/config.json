@@ -7,7 +7,8 @@
     "dragonData": "../../assets/data/dragon.json",
 
     "player": {
-        "health": 1000,
+        "health": 2000,
+        "baseDamage": 50,
         "movementSpeed": 96,
         "positionX": 0,
         "positionY": 0
@@ -16,7 +17,8 @@
     "enemies": [
         {
             "type": "firetroll",
-            "health": 300,
+            "baseDamage": 50,
+            "health": 200,
             "movementSpeed": 64,
             "positionX": 500,
             "positionY": 200
@@ -24,9 +26,19 @@
         
         {
             "type": "icetroll",
-            "health": 300,
+            "baseDamage": 50,
+            "health": 200,
             "movementSpeed": 64,
             "positionX": 500,
+            "positionY": 400
+        },
+        
+        {
+            "type": "dragon",
+            "baseDamage": 100,
+            "health": 300,
+            "movementSpeed": 64,
+            "positionX": 250,
             "positionY": 400
         }
     ]

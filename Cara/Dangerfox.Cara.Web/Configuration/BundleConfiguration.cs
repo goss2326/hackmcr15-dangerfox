@@ -35,7 +35,7 @@ namespace Dangerfox.Cara.Web.Configuration
                 .Add("~/scripts/source/game.js")
 
                 .WithMinifier<JavaScriptMinifier>()
-                .AsCached("core", "~/bundles/scripts/core.js");
+                .AsNamed("core", "~/bundles/scripts/core.js");
         }
     }
 }

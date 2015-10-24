@@ -2,9 +2,11 @@
 {
     export abstract class Character
     {
-        protected health: number;
-        protected movementSpeed: number;
-        protected direction: Support.Direction;
+        public health: number;
+        public baseDamage: number;
+        public attackFps: number;
+        public movementSpeed: number;
+        public direction: Support.Direction;
 
         public sprite: Phaser.Sprite;
         public attacking: boolean;
@@ -26,12 +28,15 @@
 
         protected create(
             health: number,
+            baseDamage: number,
             movementSpeed: number,
             direction: Support.Direction,
             startPosition: Phaser.Point,
             spriteData: any)
         {
             this.health = health;
+            this.baseDamage = baseDamage;
+            this.attackFps = spriteData.animations.attackFps;
             this.movementSpeed = movementSpeed;
             this.direction = direction;
 
@@ -77,6 +82,11 @@
                 boundingBox.offsetX,
                 boundingBox.offsetY
             );
+        }
+
+        public render()
+        {
+            //this.game.debug.body(this.sprite);
         }
 
         protected move(direction: Support.Direction)
