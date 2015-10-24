@@ -146,7 +146,7 @@
             this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
             this.map.create();
-           
+
             // create the player
             this.player.create(
                 this.config.player.health,
@@ -175,6 +175,8 @@
                     this.firetrollData
                 );
             }
+
+            this.game.camera.follow(this.player.sprite);
         }
 
         public update()
