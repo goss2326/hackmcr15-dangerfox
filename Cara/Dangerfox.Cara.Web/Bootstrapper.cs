@@ -1,6 +1,7 @@
 ﻿using Dangerfox.Cara.Web.Configuration;
 using Nancy;
 using Nancy.Bootstrapper;
+using Nancy.Conventions;
 using Nancy.Helpers;
 using Nancy.Session;
 using Nancy.TinyIoc;
@@ -40,6 +41,19 @@ namespace Dangerfox.Cara.Web
                     }
                 }
             };
+        }
+
+        /// <summary>
+        /// Overrides/configures Nancy's conventions
+        /// </summary>
+        /// <param name="nancyConventions">Convention object instance</param>
+        protected override void ConfigureConventions(NancyConventions nancyConventions)
+        {
+            base.ConfigureConventions(nancyConventions);
+
+            nancyConventions.StaticContentsConventions.Add(
+                StaticContentConventionBuilder.AddDirectory("scripts", "scripts")
+            );
         }
     }
 }

@@ -118,6 +118,7 @@
     <Content Include="scripts\lib\jquery\jquery-2.1.4.min.js" />
     <Content Include="scripts\lib\jquery\jquery-2.1.4.min.map" />
     <Content Include="scripts\lib\phaser\phaser.map" />
+    <None Include="scripts\source\_references.js" />
     <Content Include="Views\_layouts\_master.cshtml" />
     <Content Include="Views\Home\index.cshtml" />
     <None Include="Web.Debug.config">
