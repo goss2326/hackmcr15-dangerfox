@@ -2,11 +2,14 @@
 {
     export abstract class Character
     {
+        protected health: number;
+        protected movementSpeed: number;
         protected direction: Support.Direction;
+
         public sprite: Phaser.Sprite;
         public attacking: boolean;
 
-        constructor(protected game: Phaser.Game, private spriteKey: string, private movementSpeed: number, protected health: number)
+        constructor(protected game: Phaser.Game, private spriteKey: string)
         {
         }
 
@@ -22,10 +25,16 @@
         }
 
         protected create(
+            health: number,
+            movementSpeed: number,
+            direction: Support.Direction,
             startPosition: Phaser.Point,
-            spriteScale: Phaser.Point,
             spriteData: any)
         {
+            this.health = health;
+            this.movementSpeed = movementSpeed;
+            this.direction = direction;
+
             // create the sprite
             this.sprite = this.game.add.sprite(
                 startPosition.x,
@@ -33,25 +42,23 @@
                 this.spriteKey
             );
 
-            this.sprite.scale = spriteScale;
-
             // animations
             var animations = spriteData.animations;
 
-            this.sprite.animations.add("move-" + Support.Direction.Right.toString(), animations.moveRight, animations.moveFps, true);
-            this.sprite.animations.add("move-" + Support.Direction.Down.toString(), animations.moveDown, animations.moveFps, true);
-            this.sprite.animations.add("move-" + Support.Direction.Left.toString(), animations.moveLeft, animations.moveFps, true);
-            this.sprite.animations.add("move-" + Support.Direction.Up.toString(), animations.moveUp, animations.moveFps, true);
+            this.sprite.animations.add("move-" + Support.Direction.Right.toString(), animations.moveRight, animations.moveFps, false);
+            this.sprite.animations.add("move-" + Support.Direction.Down.toString(), animations.moveDown, animations.moveFps, false);
+            this.sprite.animations.add("move-" + Support.Direction.Left.toString(), animations.moveLeft, animations.moveFps, false);
+            this.sprite.animations.add("move-" + Support.Direction.Up.toString(), animations.moveUp, animations.moveFps, false);
 
-            this.sprite.animations.add("idle-" + Support.Direction.Right.toString(), animations.idleRight, animations.idleFps, true);
-            this.sprite.animations.add("idle-" + Support.Direction.Down.toString(), animations.idleDown, animations.idleFps, true);
-            this.sprite.animations.add("idle-" + Support.Direction.Left.toString(), animations.idleLeft, animations.idleFps, true);
-            this.sprite.animations.add("idle-" + Support.Direction.Up.toString(), animations.idleUp, animations.idleFps, true);
+            this.sprite.animations.add("idle-" + Support.Direction.Right.toString(), animations.idleRight, animations.idleFps, false);
+            this.sprite.animations.add("idle-" + Support.Direction.Down.toString(), animations.idleDown, animations.idleFps, false);
+            this.sprite.animations.add("idle-" + Support.Direction.Left.toString(), animations.idleLeft, animations.idleFps, false);
+            this.sprite.animations.add("idle-" + Support.Direction.Up.toString(), animations.idleUp, animations.idleFps, false);
 
-            this.sprite.animations.add("attack-" + Support.Direction.Right.toString(), animations.attackRight, animations.attackFps, true);
-            this.sprite.animations.add("attack-" + Support.Direction.Down.toString(), animations.attackDown, animations.attackFps, true);
-            this.sprite.animations.add("attack-" + Support.Direction.Left.toString(), animations.attackLeft, animations.attackFps, true);
-            this.sprite.animations.add("attack-" + Support.Direction.Up.toString(), animations.attackUp, animations.attackFps, true);
+            this.sprite.animations.add("attack-" + Support.Direction.Right.toString(), animations.attackRight, animations.attackFps, false);
+            this.sprite.animations.add("attack-" + Support.Direction.Down.toString(), animations.attackDown, animations.attackFps, false);
+            this.sprite.animations.add("attack-" + Support.Direction.Left.toString(), animations.attackLeft, animations.attackFps, false);
+            this.sprite.animations.add("attack-" + Support.Direction.Up.toString(), animations.attackUp, animations.attackFps, false);
 
             // play default
             this.sprite.animations.play("idle-" + Support.Direction.Down.toString());

@@ -1,0 +1,33 @@
+﻿{
+    "knightData": "../../assets/data/knight.json",
+    "mageData": "../../assets/data/mage.json",
+
+    "firetrollData": "../../assets/data/firetroll.json",
+    "icetrollData": "../../assets/data/icetroll.json",
+    "dragonData": "../../assets/data/dragon.json",
+
+    "player": {
+        "health": 1000,
+        "movementSpeed": 96,
+        "positionX": 0,
+        "positionY": 0
+    },
+
+    "enemies": [
+        {
+            "type": "firetroll",
+            "health": 300,
+            "movementSpeed": 64,
+            "positionX": 500,
+            "positionY": 200
+        },
+        
+        {
+            "type": "icetroll",
+            "health": 300,
+            "movementSpeed": 64,
+            "positionX": 500,
+            "positionY": 400
+        }
+    ]
+}

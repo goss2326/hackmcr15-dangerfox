@@ -1,7 +1,7 @@
 ﻿{
     "spritesheet": "../../assets/sprites/knight.png",
     "spriteWidth": 96,
-    "spirteHeight": 96,
+    "spriteHeight": 96,
 
     "physics": {
         "boundingBox": {
