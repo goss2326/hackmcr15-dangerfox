@@ -100,28 +100,27 @@ var Dangerfox;
         (function (Components) {
             var Player = (function (_super) {
                 __extends(Player, _super);
-                function Player(game, spriteDataKey) {
+                function Player(game) {
                     _super.call(this, game, "player", 32.0);
-                    this.spriteDataKey = spriteDataKey;
                 }
-                Player.prototype.preload = function () {
-                    _super.prototype.preload.call(this, "../../assets/sprites/knight.png", 96, 96);
+                Player.prototype.preload = function (spritesheet, spriteWidth, spriteHeight) {
+                    _super.prototype.preload.call(this, spritesheet, spriteWidth, spriteHeight);
                 };
-                Player.prototype.create = function () {
+                Player.prototype.create = function (spriteData) {
                     _super.prototype.create.call(this, new Phaser.Point(0, 0), new Phaser.Point(1, 1), Cara.Support.Direction.Right);
-                    var data = JSON.parse(this.game.cache.getJSON(this.spriteDataKey));
-                    this.sprite.animations.add("move-" + Cara.Support.Direction.Right.toString(), [17, 18, 19, 20, 21, 22, 23], 7, true);
-                    this.sprite.animations.add("move-" + Cara.Support.Direction.Down.toString(), [49, 50, 51, 52, 53, 54, 55], 7, true);
-                    this.sprite.animations.add("move-" + Cara.Support.Direction.Left.toString(), [97, 98, 99, 100, 101, 102, 103], 7, true);
-                    this.sprite.animations.add("move-" + Cara.Support.Direction.Up.toString(), [0, 1, 2, 3, 4, 5, 6], 7, true);
-                    this.sprite.animations.add("idle-" + Cara.Support.Direction.Right.toString(), [118], 1, true);
-                    this.sprite.animations.add("idle-" + Cara.Support.Direction.Down.toString(), [112], 1, true);
-                    this.sprite.animations.add("idle-" + Cara.Support.Direction.Left.toString(), [114], 1, true);
-                    this.sprite.animations.add("idle-" + Cara.Support.Direction.Up.toString(), [116], 1, true);
-                    this.sprite.animations.add("attack-" + Cara.Support.Direction.Right.toString(), [384, 385, 386, 387, 388, 389, 390, 391, 392, 393, 394, 395, 396], 26, true);
-                    this.sprite.animations.add("attack-" + Cara.Support.Direction.Down.toString(), [448, 449, 450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460], 26, true);
-                    this.sprite.animations.add("attack-" + Cara.Support.Direction.Left.toString(), [496, 497, 498, 499, 500, 501, 502, 503, 504, 505, 506, 507, 508], 26, true);
-                    this.sprite.animations.add("attack-" + Cara.Support.Direction.Up.toString(), [400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412], 26, true);
+                    var animations = spriteData.animations;
+                    this.sprite.animations.add("move-" + Cara.Support.Direction.Right.toString(), animations.moveRight, animations.moveFps, true);
+                    this.sprite.animations.add("move-" + Cara.Support.Direction.Down.toString(), animations.moveDown, animations.moveFps, true);
+                    this.sprite.animations.add("move-" + Cara.Support.Direction.Left.toString(), animations.moveLeft, animations.moveFps, true);
+                    this.sprite.animations.add("move-" + Cara.Support.Direction.Up.toString(), animations.moveUp, animations.moveFps, true);
+                    this.sprite.animations.add("idle-" + Cara.Support.Direction.Right.toString(), animations.idleRight, animations.idleFps, true);
+                    this.sprite.animations.add("idle-" + Cara.Support.Direction.Down.toString(), animations.idleDown, animations.idleFps, true);
+                    this.sprite.animations.add("idle-" + Cara.Support.Direction.Left.toString(), animations.idleLeft, animations.idleFps, true);
+                    this.sprite.animations.add("idle-" + Cara.Support.Direction.Up.toString(), animations.idleUp, animations.idleFps, true);
+                    this.sprite.animations.add("attack-" + Cara.Support.Direction.Right.toString(), animations.attackRight, animations.attackFps, true);
+                    this.sprite.animations.add("attack-" + Cara.Support.Direction.Down.toString(), animations.attackDown, animations.attackFps, true);
+                    this.sprite.animations.add("attack-" + Cara.Support.Direction.Left.toString(), animations.attackLeft, animations.attackFps, true);
+                    this.sprite.animations.add("attack-" + Cara.Support.Direction.Up.toString(), animations.attackUp, animations.attackFps, true);
                     // play default
                     this.sprite.animations.play(Cara.Support.Direction.Down.toString());
                 };
@@ -207,11 +206,12 @@ var Dangerfox;
                 }
                 InPlay.prototype.preload = function () {
                     this.game.load.json("knight-data", "../../assets/data/knight.json");
-                    this.player = new Cara.Components.Player(this.game, "knight-data");
-                    this.player.preload();
+                    this.player = new Cara.Components.Player(this.game);
+                    this.player.preload("../../assets/sprites/knight.png", 96, 96);
                 };
                 InPlay.prototype.create = function () {
-                    this.player.create();
+                    var knightData = this.game.cache.getJSON("knight-data");
+                    this.player.create(knightData);
                 };
                 InPlay.prototype.update = function () {
                     this.player.update();

@@ -144,6 +144,7 @@
     <Compile Include="Configuration\RazorConfiguration.cs" />
     <Compile Include="Configuration\Verify.cs" />
     <Compile Include="Modules\BundleModule.cs" />
+    <Compile Include="Modules\DataModule.cs" />
     <Compile Include="Modules\HomeModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
