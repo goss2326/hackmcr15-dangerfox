@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\sprites\knightsprites.png" />
+    <Content Include="assets\sprites\magesprites.png" />
     <Content Include="packages.config" />
     <None Include="scripts\lib\jquery\jquery-2.1.4.intellisense.js" />
     <Content Include="scripts\lib\jquery\jquery-2.1.4.js" />
