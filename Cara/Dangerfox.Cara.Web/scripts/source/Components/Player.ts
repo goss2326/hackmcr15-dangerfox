@@ -9,7 +9,8 @@
 
         public preload()
         {
-            super.preload("../../assets/sprites/knight.png", 96, 96);
+            //"../../assets/sprites/knight.png"
+            super.preload(this.spriteData.spritesheet, 96, 96);
         }
 
         public create()

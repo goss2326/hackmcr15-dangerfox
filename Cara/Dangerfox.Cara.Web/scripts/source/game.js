@@ -100,11 +100,13 @@ var Dangerfox;
         (function (Components) {
             var Player = (function (_super) {
                 __extends(Player, _super);
-                function Player(game) {
+                function Player(game, spriteData) {
                     _super.call(this, game, "player", 32.0);
+                    this.spriteData = spriteData;
                 }
                 Player.prototype.preload = function () {
-                    _super.prototype.preload.call(this, "../../assets/sprites/knight.png", 96, 96);
+                    //"../../assets/sprites/knight.png"
+                    _super.prototype.preload.call(this, this.spriteData.spritesheet, 96, 96);
                 };
                 Player.prototype.create = function () {
                     _super.prototype.create.call(this, new Phaser.Point(0, 0), new Phaser.Point(1, 1), Cara.Support.Direction.Right);
@@ -204,7 +206,8 @@ var Dangerfox;
                     _super.apply(this, arguments);
                 }
                 InPlay.prototype.preload = function () {
-                    this.player = new Cara.Components.Player(this.game);
+                    this.game.load.json("knight-data", "../../assets/data/knight.json");
+                    this.player = new Cara.Components.Player(this.game, this.game.cache.getJSON("knight-data"));
                     this.player.preload();
                 };
                 InPlay.prototype.create = function () {

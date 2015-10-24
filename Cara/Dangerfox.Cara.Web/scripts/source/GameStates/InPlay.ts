@@ -6,7 +6,9 @@
 
         public preload()
         {
-            this.player = new Components.Player(this.game);
+            this.game.load.json("knight-data", "../../assets/data/knight.json");
+
+            this.player = new Components.Player(this.game, this.game.cache.getJSON("knight-data"));
             this.player.preload();
         }
 
