@@ -47,8 +47,6 @@
             switch (direction)
             {
                 case Support.Direction.Right:
-                    this.sprite.animations.play("move-" + Support.Direction.Right.toString());
-
                     vector.x = this.movementSpeed;
                     break;
 
@@ -62,8 +60,6 @@
                 //    break;
 
                 case Support.Direction.Down:
-                    this.sprite.animations.play("move-" + Support.Direction.Down.toString());
-
                     vector.y = this.movementSpeed;
                     break;
 
@@ -77,8 +73,6 @@
                 //    break;
 
                 case Support.Direction.Left:
-                    this.sprite.animations.play("move-" + Support.Direction.Left.toString());
-
                     vector.x = -this.movementSpeed;
                     break;
 
@@ -92,8 +86,6 @@
                 //    break;
 
                 case Support.Direction.Up:
-                    this.sprite.animations.play("move-" + Support.Direction.Up.toString());
-
                     vector.y = -this.movementSpeed;
                     break;
 

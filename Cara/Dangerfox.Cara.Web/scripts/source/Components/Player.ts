@@ -30,6 +30,11 @@
             this.sprite.animations.add("idle-" + Support.Direction.Left.toString(), [114], 1, true);
             this.sprite.animations.add("idle-" + Support.Direction.Up.toString(), [116], 1, true);
 
+            this.sprite.animations.add("attack-" + Support.Direction.Right.toString(), [384, 385, 386, 387, 388, 389, 390, 391, 392, 393, 394, 395, 396], 26, true);
+            this.sprite.animations.add("attack-" + Support.Direction.Down.toString(), [448, 449, 450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460], 26, true);
+            this.sprite.animations.add("attack-" + Support.Direction.Left.toString(), [496, 497, 498, 499, 500, 501, 502, 503, 504, 505, 506, 507, 508], 26, true);
+            this.sprite.animations.add("attack-" + Support.Direction.Up.toString(), [400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412], 26, true);
+
             // play default
             this.sprite.animations.play(Support.Direction.Down.toString());
         }
@@ -41,32 +46,88 @@
 
         private processInput()
         {
+            var input: boolean = false;
+            var attacking: boolean = false;
+
+            if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
+            {
+                input = true;
+                attacking = true;
+            }
+
             // process input to change player direction
             if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
             {
+                input = true;
+
                 this.direction = Support.Direction.Left;
-                this.sprite.animations.play(Support.Direction.Left.toString());
                 this.move(this.direction);
+
+                if (!attacking)
+                {
+                    this.sprite.animations.play("move-" + Support.Direction.Left.toString());
+                }
             }
             else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
             {
+                input = true;
+
                 this.direction = Support.Direction.Right;
-                this.sprite.animations.play(Support.Direction.Right.toString());
                 this.move(this.direction);
+
+                if (!attacking)
+                {
+                    this.sprite.animations.play("move-" + Support.Direction.Right.toString());
+                }
             }
             else if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN))
             {
+                input = true;
+
                 this.direction = Support.Direction.Down;
-                this.sprite.animations.play(Support.Direction.Down.toString());
                 this.move(this.direction);
+
+                if (!attacking)
+                {
+                    this.sprite.animations.play("move-" + Support.Direction.Down.toString());
+                }
             }
             else if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP))
             {
+                input = true;
+
                 this.direction = Support.Direction.Up;
-                this.sprite.animations.play(Support.Direction.Up.toString());
                 this.move(this.direction);
+
+                if (!attacking)
+                {
+                    this.sprite.animations.play("move-" + Support.Direction.Up.toString());
+                }
             }
-            else
+
+            if (attacking)
+            {
+                switch (this.direction)
+                {
+                    case Support.Direction.Right:
+                        this.sprite.animations.play("attack-" + Support.Direction.Right.toString());
+                        break;
+
+                    case Support.Direction.Down:
+                        this.sprite.animations.play("attack-" + Support.Direction.Down.toString());
+                        break;
+
+                    case Support.Direction.Left:
+                        this.sprite.animations.play("attack-" + Support.Direction.Left.toString());
+                        break;
+
+                    case Support.Direction.Up:
+                        this.sprite.animations.play("attack-" + Support.Direction.Up.toString());
+                        break;
+                }
+            }
+
+            if (!input)
             {
                 this.idle(this.direction);
             }
