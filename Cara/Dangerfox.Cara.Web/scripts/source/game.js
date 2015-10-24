@@ -100,16 +100,16 @@ var Dangerfox;
         (function (Components) {
             var Player = (function (_super) {
                 __extends(Player, _super);
-                function Player(game, spriteData) {
+                function Player(game, spriteDataKey) {
                     _super.call(this, game, "player", 32.0);
-                    this.spriteData = spriteData;
+                    this.spriteDataKey = spriteDataKey;
                 }
                 Player.prototype.preload = function () {
-                    //"../../assets/sprites/knight.png"
-                    _super.prototype.preload.call(this, this.spriteData.spritesheet, 96, 96);
+                    _super.prototype.preload.call(this, "../../assets/sprites/knight.png", 96, 96);
                 };
                 Player.prototype.create = function () {
                     _super.prototype.create.call(this, new Phaser.Point(0, 0), new Phaser.Point(1, 1), Cara.Support.Direction.Right);
+                    var data = JSON.parse(this.game.cache.getJSON(this.spriteDataKey));
                     this.sprite.animations.add("move-" + Cara.Support.Direction.Right.toString(), [17, 18, 19, 20, 21, 22, 23], 7, true);
                     this.sprite.animations.add("move-" + Cara.Support.Direction.Down.toString(), [49, 50, 51, 52, 53, 54, 55], 7, true);
                     this.sprite.animations.add("move-" + Cara.Support.Direction.Left.toString(), [97, 98, 99, 100, 101, 102, 103], 7, true);
@@ -207,7 +207,7 @@ var Dangerfox;
                 }
                 InPlay.prototype.preload = function () {
                     this.game.load.json("knight-data", "../../assets/data/knight.json");
-                    this.player = new Cara.Components.Player(this.game, this.game.cache.getJSON("knight-data"));
+                    this.player = new Cara.Components.Player(this.game, "knight-data");
                     this.player.preload();
                 };
                 InPlay.prototype.create = function () {

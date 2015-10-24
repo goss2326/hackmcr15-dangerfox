@@ -2,20 +2,21 @@
 {
     export class Player extends Character
     {
-        constructor(game: Phaser.Game, private spriteData: any)
+        constructor(game: Phaser.Game, private spriteDataKey: string)
         {
             super(game, "player", 32.0);
         }
 
         public preload()
         {
-            //"../../assets/sprites/knight.png"
-            super.preload(this.spriteData.spritesheet, 96, 96);
+            super.preload("../../assets/sprites/knight.png", 96, 96);
         }
 
         public create()
         {
             super.create(new Phaser.Point(0, 0), new Phaser.Point(1, 1), Support.Direction.Right);
+
+            var data = JSON.parse(this.game.cache.getJSON(this.spriteDataKey));
 
             this.sprite.animations.add("move-" + Support.Direction.Right.toString(), [17, 18, 19, 20, 21, 22, 23], 7, true);
             this.sprite.animations.add("move-" + Support.Direction.Down.toString(), [49, 50, 51, 52, 53, 54, 55], 7, true);
