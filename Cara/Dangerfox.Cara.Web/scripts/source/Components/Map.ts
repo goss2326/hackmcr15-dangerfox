@@ -57,8 +57,8 @@
 
             for (var i: number = 0; i < this.layers.length; ++i)
             {
-                this.layers[i].resizeWorld();
-                this.layers[i].wrap = true;
+                //this.layers[i].resizeWorld();
+                //this.layers[i].wrap = true;
             }
         }
     }
