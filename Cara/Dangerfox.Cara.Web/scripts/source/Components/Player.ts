@@ -4,7 +4,7 @@
     {
         constructor(game: Phaser.Game)
         {
-            super(game, "player", 96.0, 1000);
+            super(game, "player");
         }
 
         public preload(spritesheet: string, spriteWidth: number, spriteHeight: number)
@@ -16,9 +16,15 @@
             );
         }
 
-        public create(spriteData: any)
+        public create(
+            health: number,
+            baseDamage: number,
+            movementSpeed: number,
+            direction: Support.Direction,
+            startPosition: Phaser.Point,
+            spriteData: any)
         {
-            super.create(new Phaser.Point(0, 0), new Phaser.Point(1, 1), spriteData);
+            super.create(health, baseDamage, movementSpeed, direction, startPosition, spriteData);
         }
 
         public update()

@@ -2,9 +2,9 @@
 {
     export class Enemy extends Character
     {
-        constructor(game: Phaser.Game)
+        constructor(game: Phaser.Game, spriteKey: string)
         {
-            super(game, "enemy", 64.0, 300);
+            super(game, spriteKey);
         }
 
         public preload(spritesheet: string, spriteWidth: number, spriteHeight: number)
@@ -16,9 +16,15 @@
             );
         }
 
-        public create(spriteData: any, startPosition: Phaser.Point)
+        public create(
+            health: number,
+            baseDamage: number,
+            movementSpeed: number,
+            direction: Support.Direction,
+            startPosition: Phaser.Point,
+            spriteData: any)
         {
-            super.create(startPosition, new Phaser.Point(1, 1), spriteData);
+            super.create(health, baseDamage, movementSpeed, direction, startPosition, spriteData);
         }
 
         public update(player: Components.Player)
@@ -122,12 +128,12 @@
 
                 if (player.attacking)
                 {
-                    this.takeDamage(5);
+                    this.takeDamage(player.baseDamage / player.attackFps);
                 }
 
                 if (this.attacking)
                 {
-                    player.takeDamage(5);
+                    player.takeDamage(this.baseDamage / this.attackFps);
                 }
             }
 
