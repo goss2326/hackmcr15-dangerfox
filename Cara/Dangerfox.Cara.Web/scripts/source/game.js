@@ -10,66 +10,80 @@ var Dangerfox;
                     this.spriteKey = spriteKey;
                     this.movementSpeed = movementSpeed;
                 }
-                Character.prototype.preload = function (spritesheetUrl, frameWidth, frameHeight, frameMax) {
+                Character.prototype.preload = function (spritesheetUrl, frameWidth, frameHeight) {
                     // load spritesheet for character
-                    this.game.load.spritesheet(this.spriteKey, spritesheetUrl, frameWidth, frameHeight, frameMax);
+                    this.game.load.spritesheet(this.spriteKey, spritesheetUrl, frameWidth, frameHeight);
                 };
                 Character.prototype.create = function (startPosition, spriteScale, direction) {
                     // create the sprite
                     this.sprite = this.game.add.sprite(startPosition.x, startPosition.y, this.spriteKey);
                     this.sprite.scale = spriteScale;
                     this.direction = direction;
-                    // TODO: set up animations
                     // configure physics
                     this.game.physics.enable(this.sprite);
                     this.sprite.body.collideWorldBounds = true;
                 };
                 Character.prototype.move = function (direction) {
-                    var movementVector = this.getMovementVector(direction);
-                    this.sprite.body.physics.velocity.x = movementVector.x;
-                    this.sprite.body.physics.velocity.y = movementVector.y;
-                };
-                Character.prototype.getMovementVector = function (direction) {
                     var vector = new Phaser.Point();
                     switch (direction) {
-                        case Dangerfox.Cara.Support.Direction.Right:
+                        case Cara.Support.Direction.Right:
+                            this.sprite.animations.play("move-" + Cara.Support.Direction.Right.toString());
                             vector.x = this.movementSpeed;
                             break;
-                        case Dangerfox.Cara.Support.Direction.DownRight:
-                            vector.x = 1;
-                            vector.y = 1;
-                            vector.normalize();
-                            vector.setMagnitude(this.movementSpeed);
-                            break;
-                        case Dangerfox.Cara.Support.Direction.Down:
+                        //case Support.Direction.DownRight:
+                        //    this.sprite.animations.play(Support.Direction.DownRight.toString());
+                        //    vector.x = 1;
+                        //    vector.y = 1;
+                        //    vector.normalize();
+                        //    vector.setMagnitude(this.movementSpeed);
+                        //    break;
+                        case Cara.Support.Direction.Down:
+                            this.sprite.animations.play("move-" + Cara.Support.Direction.Down.toString());
                             vector.y = this.movementSpeed;
                             break;
-                        case Dangerfox.Cara.Support.Direction.DownLeft:
-                            vector.x = -1;
-                            vector.y = 1;
-                            vector.normalize();
-                            vector.setMagnitude(this.movementSpeed);
-                            break;
-                        case Dangerfox.Cara.Support.Direction.Left:
+                        //case Support.Direction.DownLeft:
+                        //    this.sprite.animations.play(Support.Direction.DownLeft.toString());
+                        //    vector.x = -1;
+                        //    vector.y = 1;
+                        //    vector.normalize();
+                        //    vector.setMagnitude(this.movementSpeed);
+                        //    break;
+                        case Cara.Support.Direction.Left:
+                            this.sprite.animations.play("move-" + Cara.Support.Direction.Left.toString());
                             vector.x = -this.movementSpeed;
                             break;
-                        case Dangerfox.Cara.Support.Direction.UpLeft:
-                            vector.x = -1;
-                            vector.y = -1;
-                            vector.normalize();
-                            vector.setMagnitude(this.movementSpeed);
-                            break;
-                        case Dangerfox.Cara.Support.Direction.Up:
+                        //case Support.Direction.UpLeft:
+                        //    this.sprite.animations.play(Support.Direction.UpLeft.toString());
+                        //    vector.x = -1;
+                        //    vector.y = -1;
+                        //    vector.normalize();
+                        //    vector.setMagnitude(this.movementSpeed);
+                        //    break;
+                        case Cara.Support.Direction.Up:
+                            this.sprite.animations.play("move-" + Cara.Support.Direction.Up.toString());
                             vector.y = -this.movementSpeed;
                             break;
-                        case Dangerfox.Cara.Support.Direction.UpRight:
-                            vector.x = 1;
-                            vector.y = -1;
-                            vector.normalize();
-                            vector.setMagnitude(this.movementSpeed);
+                    }
+                    this.sprite.body.velocity.x = vector.x;
+                    this.sprite.body.velocity.y = vector.y;
+                };
+                Character.prototype.idle = function (direction) {
+                    switch (direction) {
+                        case Cara.Support.Direction.Right:
+                            this.sprite.animations.play("idle-" + Cara.Support.Direction.Right.toString());
+                            break;
+                        case Cara.Support.Direction.Down:
+                            this.sprite.animations.play("idle-" + Cara.Support.Direction.Down.toString());
+                            break;
+                        case Cara.Support.Direction.Left:
+                            this.sprite.animations.play("idle-" + Cara.Support.Direction.Left.toString());
+                            break;
+                        case Cara.Support.Direction.Up:
+                            this.sprite.animations.play("idle-" + Cara.Support.Direction.Up.toString());
                             break;
                     }
-                    return vector;
+                    this.sprite.body.velocity.x = 0;
+                    this.sprite.body.velocity.y = 0;
                 };
                 return Character;
             })();
@@ -86,6 +100,72 @@ var Dangerfox;
 (function (Dangerfox) {
     var Cara;
     (function (Cara) {
+        var Components;
+        (function (Components) {
+            var Player = (function (_super) {
+                __extends(Player, _super);
+                function Player(game) {
+                    _super.call(this, game, "player", 32.0);
+                }
+                Player.prototype.preload = function () {
+                    _super.prototype.preload.call(this, "../../assets/sprites/knight.png", 96, 96);
+                };
+                Player.prototype.create = function () {
+                    _super.prototype.create.call(this, new Phaser.Point(0, 0), new Phaser.Point(1, 1), Cara.Support.Direction.Right);
+                    this.sprite.animations.add("move-" + Cara.Support.Direction.Right.toString(), [17, 18, 19, 20, 21, 22, 23], 7, true);
+                    //this.sprite.animations.add(Support.Direction.DownRight.toString(), [65, 66, 67, 68, 69, 70, 71], 7, true);
+                    this.sprite.animations.add("move-" + Cara.Support.Direction.Down.toString(), [49, 50, 51, 52, 53, 54, 55], 7, true);
+                    //this.sprite.animations.add(Support.Direction.DownLeft.toString(), [81, 82, 83, 84, 85, 86, 87], 7, true);
+                    this.sprite.animations.add("move-" + Cara.Support.Direction.Left.toString(), [97, 98, 99, 100, 101, 102, 103], 7, true);
+                    //this.sprite.animations.add(Support.Direction.UpLeft.toString(), [33, 34, 35, 36, 37, 38, 39], 7, true);
+                    this.sprite.animations.add("move-" + Cara.Support.Direction.Up.toString(), [0, 1, 2, 3, 4, 5, 6], 7, true);
+                    //this.sprite.animations.add(Support.Direction.UpRight.toString(), [0, 1, 2, 3, 4, 5, 6], 7, true);
+                    this.sprite.animations.add("idle-" + Cara.Support.Direction.Right.toString(), [118], 1, true);
+                    this.sprite.animations.add("idle-" + Cara.Support.Direction.Down.toString(), [112], 1, true);
+                    this.sprite.animations.add("idle-" + Cara.Support.Direction.Left.toString(), [114], 1, true);
+                    this.sprite.animations.add("idle-" + Cara.Support.Direction.Up.toString(), [116], 1, true);
+                    // play default
+                    this.sprite.animations.play(Cara.Support.Direction.Down.toString());
+                };
+                Player.prototype.update = function () {
+                    this.processInput();
+                };
+                Player.prototype.processInput = function () {
+                    // process input to change player direction
+                    if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+                        this.direction = Cara.Support.Direction.Left;
+                        this.sprite.animations.play(Cara.Support.Direction.Left.toString());
+                        this.move(this.direction);
+                    }
+                    else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+                        this.direction = Cara.Support.Direction.Right;
+                        this.sprite.animations.play(Cara.Support.Direction.Right.toString());
+                        this.move(this.direction);
+                    }
+                    else if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+                        this.direction = Cara.Support.Direction.Down;
+                        this.sprite.animations.play(Cara.Support.Direction.Down.toString());
+                        this.move(this.direction);
+                    }
+                    else if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+                        this.direction = Cara.Support.Direction.Up;
+                        this.sprite.animations.play(Cara.Support.Direction.Up.toString());
+                        this.move(this.direction);
+                    }
+                    else {
+                        this.idle(this.direction);
+                    }
+                };
+                return Player;
+            })(Components.Character);
+            Components.Player = Player;
+        })(Components = Cara.Components || (Cara.Components = {}));
+    })(Cara = Dangerfox.Cara || (Dangerfox.Cara = {}));
+})(Dangerfox || (Dangerfox = {}));
+var Dangerfox;
+(function (Dangerfox) {
+    var Cara;
+    (function (Cara) {
         var GameStates;
         (function (GameStates) {
             var InPlay = (function (_super) {
@@ -94,10 +174,14 @@ var Dangerfox;
                     _super.apply(this, arguments);
                 }
                 InPlay.prototype.preload = function () {
+                    this.player = new Cara.Components.Player(this.game);
+                    this.player.preload();
                 };
                 InPlay.prototype.create = function () {
+                    this.player.create();
                 };
                 InPlay.prototype.update = function () {
+                    this.player.update();
                 };
                 return InPlay;
             })(Phaser.State);

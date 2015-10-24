@@ -2,29 +2,28 @@
 {
     export abstract class Character
     {
-        private direction: Dangerfox.Cara.Support.Direction;
-        public sprite: Phaser.Sprite;
+        protected direction: Support.Direction;
+        protected sprite: Phaser.Sprite;
 
-        constructor(private game: Phaser.Game, private spriteKey: string, private movementSpeed: number)
+        constructor(protected game: Phaser.Game, private spriteKey: string, private movementSpeed: number)
         {
         }
 
-        public preload(spritesheetUrl: string, frameWidth: number, frameHeight: number, frameMax: number)
+        protected preload(spritesheetUrl: string, frameWidth: number, frameHeight: number)
         {
             // load spritesheet for character
             this.game.load.spritesheet(
                 this.spriteKey,
                 spritesheetUrl,
                 frameWidth,
-                frameHeight,
-                frameMax
+                frameHeight
             );
         }
 
-        public create(
+        protected create(
             startPosition: Phaser.Point,
             spriteScale: Phaser.Point,
-            direction: Dangerfox.Cara.Support.Direction)
+            direction: Support.Direction)
         {
             // create the sprite
             this.sprite = this.game.add.sprite(
@@ -36,73 +35,105 @@
             this.sprite.scale = spriteScale;
             this.direction = direction;
 
-            // TODO: set up animations
-
             // configure physics
             this.game.physics.enable(this.sprite);
             this.sprite.body.collideWorldBounds = true;
         }
 
-        protected move(direction: Dangerfox.Cara.Support.Direction)
-        {
-            var movementVector = this.getMovementVector(direction);
-
-            this.sprite.body.physics.velocity.x = movementVector.x;
-            this.sprite.body.physics.velocity.y = movementVector.y;
-        }
-
-        private getMovementVector(direction: Dangerfox.Cara.Support.Direction): Phaser.Point
+        protected move(direction: Support.Direction)
         {
             var vector = new Phaser.Point();
 
             switch (direction)
             {
-                case Dangerfox.Cara.Support.Direction.Right:
+                case Support.Direction.Right:
+                    this.sprite.animations.play("move-" + Support.Direction.Right.toString());
+
                     vector.x = this.movementSpeed;
                     break;
 
-                case Dangerfox.Cara.Support.Direction.DownRight:
-                    vector.x = 1;
-                    vector.y = 1;
-                    vector.normalize();
-                    vector.setMagnitude(this.movementSpeed);
-                    break;
+                //case Support.Direction.DownRight:
+                //    this.sprite.animations.play(Support.Direction.DownRight.toString());
 
-                case Dangerfox.Cara.Support.Direction.Down:
+                //    vector.x = 1;
+                //    vector.y = 1;
+                //    vector.normalize();
+                //    vector.setMagnitude(this.movementSpeed);
+                //    break;
+
+                case Support.Direction.Down:
+                    this.sprite.animations.play("move-" + Support.Direction.Down.toString());
+
                     vector.y = this.movementSpeed;
                     break;
 
-                case Dangerfox.Cara.Support.Direction.DownLeft:
-                    vector.x = -1;
-                    vector.y = 1;
-                    vector.normalize();
-                    vector.setMagnitude(this.movementSpeed);
-                    break;
+                //case Support.Direction.DownLeft:
+                //    this.sprite.animations.play(Support.Direction.DownLeft.toString());
 
-                case Dangerfox.Cara.Support.Direction.Left:
+                //    vector.x = -1;
+                //    vector.y = 1;
+                //    vector.normalize();
+                //    vector.setMagnitude(this.movementSpeed);
+                //    break;
+
+                case Support.Direction.Left:
+                    this.sprite.animations.play("move-" + Support.Direction.Left.toString());
+
                     vector.x = -this.movementSpeed;
                     break;
 
-                case Dangerfox.Cara.Support.Direction.UpLeft:
-                    vector.x = -1;
-                    vector.y = -1;
-                    vector.normalize();
-                    vector.setMagnitude(this.movementSpeed);
-                    break;
+                //case Support.Direction.UpLeft:
+                //    this.sprite.animations.play(Support.Direction.UpLeft.toString());
 
-                case Dangerfox.Cara.Support.Direction.Up:
+                //    vector.x = -1;
+                //    vector.y = -1;
+                //    vector.normalize();
+                //    vector.setMagnitude(this.movementSpeed);
+                //    break;
+
+                case Support.Direction.Up:
+                    this.sprite.animations.play("move-" + Support.Direction.Up.toString());
+
                     vector.y = -this.movementSpeed;
                     break;
 
-                case Dangerfox.Cara.Support.Direction.UpRight:
-                    vector.x = 1;
-                    vector.y = -1;
-                    vector.normalize();
-                    vector.setMagnitude(this.movementSpeed);
+                //case Support.Direction.UpRight:
+                //    this.sprite.animations.play(Support.Direction.UpRight.toString());
+
+                //    vector.x = 1;
+                //    vector.y = -1;
+                //    vector.normalize();
+                //    vector.setMagnitude(this.movementSpeed);
+                //    break;
+            }
+
+            this.sprite.body.velocity.x = vector.x;
+            this.sprite.body.velocity.y = vector.y;
+        }
+
+        protected idle(direction: Support.Direction)
+        {
+            switch (direction)
+            {
+                case Support.Direction.Right:
+                    this.sprite.animations.play("idle-" + Support.Direction.Right.toString());
+                    break;
+
+                case Support.Direction.Down:
+                    this.sprite.animations.play("idle-" + Support.Direction.Down.toString());
+                    break;
+
+                case Support.Direction.Left:
+                    this.sprite.animations.play("idle-" + Support.Direction.Left.toString());
+                    break;
+
+                case Support.Direction.Up:
+                    this.sprite.animations.play("idle-" + Support.Direction.Up.toString());
                     break;
             }
 
-            return vector;
+            this.sprite.body.velocity.x = 0;
+            this.sprite.body.velocity.y = 0;
         }
     }
 }
