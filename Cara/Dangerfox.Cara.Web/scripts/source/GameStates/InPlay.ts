@@ -43,6 +43,8 @@
             {
                 this.enemies[i].create(knightData, new Phaser.Point(100, 100));
             }
+
+            this.game.camera.follow(this.player.sprite);
         }
 
         public update()
