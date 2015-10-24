@@ -4,8 +4,9 @@
     {
         protected direction: Support.Direction;
         public sprite: Phaser.Sprite;
+        public attacking: boolean;
 
-        constructor(protected game: Phaser.Game, private spriteKey: string, private movementSpeed: number)
+        constructor(protected game: Phaser.Game, private spriteKey: string, private movementSpeed: number, protected health: number)
         {
         }
 
@@ -155,6 +156,21 @@
                     break;
             }
 
+            this.stopMovement();
+        }
+
+        public takeDamage(damage: number)
+        {
+            this.health = this.health - damage;
+
+            if (this.health <= 0)
+            {
+                this.sprite.kill();
+            }
+        }
+
+        public stopMovement()
+        {
             this.sprite.body.velocity.x = 0;
             this.sprite.body.velocity.y = 0;
         }

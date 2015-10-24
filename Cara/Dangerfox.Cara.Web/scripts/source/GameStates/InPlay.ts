@@ -8,20 +8,20 @@
 
         public preload()
         {
-            this.game.load.json("knight-data", "../../assets/data/knight.json");
+            this.game.load.json("knight-data", "../../assets/data/dragon.json");
 
             this.map = new Components.Map(this.game);
             this.map.preload();
 
             this.player = new Components.Player(this.game);
-            this.player.preload("../../assets/sprites/knight.png", 96, 96);
+            this.player.preload("../../assets/sprites/dragon.png", 128, 128);
 
             this.enemies = new Array<Components.Enemy>(1);
 
             for (var i: number = 0; i < this.enemies.length; ++i)
             {
                 var enemy = new Components.Enemy(this.game);
-                enemy.preload("../../assets/sprites/knight.png", 96, 96);
+                enemy.preload("../../assets/sprites/dragon.png", 96, 96);
 
                 this.enemies[i] = enemy;
             }
@@ -41,7 +41,7 @@
             // create the enemies
             for (var i: number = 0; i < this.enemies.length; ++i)
             {
-                this.enemies[i].create(knightData, new Phaser.Point(100, 100));
+                this.enemies[i].create(knightData, new Phaser.Point(500, 200));
             }
 
             this.game.camera.follow(this.player.sprite);
@@ -55,9 +55,7 @@
             {
                 var enemy = this.enemies[i];
 
-                enemy.update();
-
-                this.game.physics.arcade.collide(this.player.sprite, enemy.sprite);
+                enemy.update(this.player);
             }
         }
     }
