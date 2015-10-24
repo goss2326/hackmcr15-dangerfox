@@ -112,6 +112,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\sprites\dragon.png" />
+    <Content Include="assets\sprites\firetroll.png" />
+    <Content Include="assets\sprites\icetroll.png" />
     <Content Include="assets\sprites\knight.png" />
     <Content Include="assets\sprites\mage.png" />
     <Content Include="assets\tilesets\logs_tile.png" />
@@ -147,6 +150,7 @@
     <Compile Include="Configuration\RazorConfiguration.cs" />
     <Compile Include="Configuration\Verify.cs" />
     <Compile Include="Modules\BundleModule.cs" />
+    <Compile Include="Modules\DataModule.cs" />
     <Compile Include="Modules\HomeModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
