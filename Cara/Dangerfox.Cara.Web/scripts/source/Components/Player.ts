@@ -2,9 +2,13 @@
 {
     export class Player extends Character
     {
+        private _inventory: Inventory;
+        public pickUp: boolean;
+
         constructor(game: Phaser.Game)
         {
             super(game, "player", 96.0, 1000);
+            this._inventory = new Inventory();
         }
 
         public preload(spritesheet: string, spriteWidth: number, spriteHeight: number)
@@ -33,6 +37,7 @@
             var input: boolean = false;
             this.attacking = false;
 
+            this.pickUp = this.game.input.keyboard.isDown(Phaser.Keyboard.F);
             if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
             {
                 input = true;

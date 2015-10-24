@@ -4,6 +4,7 @@
     {
         private player: Components.Player;
         private enemies: Array<Components.Enemy>;
+        private items: Array<Components.Item>;
         private map: Components.Map;
 
         public preload()
@@ -54,6 +55,14 @@
                 var enemy = this.enemies[i];
 
                 enemy.update(this.player);
+            }
+
+            for (var n: number = 0; n < this.items.length; n++)
+            {
+                if (this.player.sprite.position.distance)
+                {
+
+                }
             }
         }
     }
