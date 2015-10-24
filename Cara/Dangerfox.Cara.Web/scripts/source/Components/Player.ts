@@ -4,7 +4,7 @@
     {
         constructor(game: Phaser.Game)
         {
-            super(game, "player", 64.0, 100);
+            super(game, "player", 96.0, 1000);
         }
 
         public preload(spritesheet: string, spriteWidth: number, spriteHeight: number)
@@ -23,6 +23,8 @@
 
         public update()
         {
+            this.game.debug.text("Player Health: " + this.health, 25, 25, "#ffffff");
+
             this.processInput();
         }
 

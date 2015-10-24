@@ -41,7 +41,7 @@
             // create the enemies
             for (var i: number = 0; i < this.enemies.length; ++i)
             {
-                this.enemies[i].create(knightData, new Phaser.Point(100, 100));
+                this.enemies[i].create(knightData, new Phaser.Point(500, 200));
             }
         }
 
@@ -53,22 +53,7 @@
             {
                 var enemy = this.enemies[i];
 
-                enemy.update();
-
-                if (this.game.physics.arcade.overlap(this.player.sprite, enemy.sprite))
-                {
-                    if (this.player.attacking)
-                    {
-                        enemy.takeDamage(5);
-                    }
-
-                    if (enemy.attacking)
-                    {
-                        this.player.takeDamage(5);
-                    }
-                }
-
-                this.game.physics.arcade.collide(this.player.sprite, enemy.sprite);
+                enemy.update(this.player);
             }
         }
     }

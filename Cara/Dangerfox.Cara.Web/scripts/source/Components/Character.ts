@@ -6,7 +6,7 @@
         public sprite: Phaser.Sprite;
         public attacking: boolean;
 
-        constructor(protected game: Phaser.Game, private spriteKey: string, private movementSpeed: number, private health: number)
+        constructor(protected game: Phaser.Game, private spriteKey: string, private movementSpeed: number, protected health: number)
         {
         }
 
@@ -156,8 +156,7 @@
                     break;
             }
 
-            this.sprite.body.velocity.x = 0;
-            this.sprite.body.velocity.y = 0;
+            this.stopMovement();
         }
 
         public takeDamage(damage: number)
@@ -168,6 +167,12 @@
             {
                 this.sprite.kill();
             }
+        }
+
+        public stopMovement()
+        {
+            this.sprite.body.velocity.x = 0;
+            this.sprite.body.velocity.y = 0;
         }
     }
 }
