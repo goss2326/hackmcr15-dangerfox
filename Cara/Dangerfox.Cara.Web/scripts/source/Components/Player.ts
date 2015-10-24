@@ -17,13 +17,9 @@
             super.create(new Phaser.Point(0, 0), new Phaser.Point(1, 1), Support.Direction.Right);
 
             this.sprite.animations.add("move-" + Support.Direction.Right.toString(), [17, 18, 19, 20, 21, 22, 23], 7, true);
-            //this.sprite.animations.add(Support.Direction.DownRight.toString(), [65, 66, 67, 68, 69, 70, 71], 7, true);
             this.sprite.animations.add("move-" + Support.Direction.Down.toString(), [49, 50, 51, 52, 53, 54, 55], 7, true);
-            //this.sprite.animations.add(Support.Direction.DownLeft.toString(), [81, 82, 83, 84, 85, 86, 87], 7, true);
             this.sprite.animations.add("move-" + Support.Direction.Left.toString(), [97, 98, 99, 100, 101, 102, 103], 7, true);
-            //this.sprite.animations.add(Support.Direction.UpLeft.toString(), [33, 34, 35, 36, 37, 38, 39], 7, true);
             this.sprite.animations.add("move-" + Support.Direction.Up.toString(), [0, 1, 2, 3, 4, 5, 6], 7, true);
-            //this.sprite.animations.add(Support.Direction.UpRight.toString(), [0, 1, 2, 3, 4, 5, 6], 7, true);
 
             this.sprite.animations.add("idle-" + Support.Direction.Right.toString(), [118], 1, true);
             this.sprite.animations.add("idle-" + Support.Direction.Down.toString(), [112], 1, true);

@@ -154,7 +154,3 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
-
-# TypeScript
-/Games/Paystream.Games.Pluto/Scripts/pluto/game.js
-/Games/Paystream.Games.Pluto/Scripts/pluto/game.js.map

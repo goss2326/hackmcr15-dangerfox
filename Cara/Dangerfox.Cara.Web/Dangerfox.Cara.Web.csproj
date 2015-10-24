@@ -115,6 +115,7 @@
     <Content Include="assets\sprites\knight.png" />
     <Content Include="assets\sprites\mage.png" />
     <Content Include="packages.config" />
+    <Content Include="assets\data\knight.json" />
     <None Include="scripts\lib\jquery\jquery-2.1.4.intellisense.js" />
     <Content Include="scripts\lib\jquery\jquery-2.1.4.js" />
     <Content Include="scripts\lib\jquery\jquery-2.1.4.min.js" />
