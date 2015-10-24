@@ -106,6 +106,48 @@ var Dangerfox;
         })(Components = Cara.Components || (Cara.Components = {}));
     })(Cara = Dangerfox.Cara || (Dangerfox.Cara = {}));
 })(Dangerfox || (Dangerfox = {}));
+var Dangerfox;
+(function (Dangerfox) {
+    var Cara;
+    (function (Cara) {
+        var Components;
+        (function (Components) {
+            var Map = (function () {
+                function Map(game) {
+                    this.game = game;
+                }
+                Map.prototype.preload = function () {
+                    this.game.load.tilemap('map', '../../assets/tilemaps/testmap.json', null, Phaser.Tilemap.TILED_JSON);
+                    this.game.load.image('map_tiles', '../../assets/tilesets/map_tiles.png');
+                    this.game.load.image('logs_tile', '../../assets/tilesets/logs_tile.png');
+                };
+                Map.prototype.create = function () {
+                    this.game.stage.backgroundColor = '#000000';
+                    this.map = this.game.add.tilemap('map');
+                    this.map.addTilesetImage('MapTiles', 'map_tiles');
+                    this.map.addTilesetImage('Logs', 'logs_tile');
+                    this.layer = this.map.createLayer('Base');
+                    //this.layer = this.map.createLayer('Paths');
+                    //this.layer = this.map.createLayer('Trees');
+                    //this.layer = this.map.createLayer('Tower');
+                    //this.layer = this.map.createLayer('Inner-Ts');
+                    //this.layer = this.map.createLayer('Buildings');
+                    //this.layer = this.map.createLayer('Building-Ts');
+                    //this.layer = this.map.createLayer('Item-Ts');
+                    //this.layer = this.map.createLayer('Signs');
+                    //this.layer = this.map.createLayer('Wall-1');
+                    //this.layer = this.map.createLayer('Wall-2');
+                    //this.layer = this.map.createLayer('Wall-3');
+                    //this.layer = this.map.createLayer('Wall-4');
+                    this.layer.resizeWorld();
+                    this.layer.wrap = true;
+                };
+                return Map;
+            })();
+            Components.Map = Map;
+        })(Components = Cara.Components || (Cara.Components = {}));
+    })(Cara = Dangerfox.Cara || (Dangerfox.Cara = {}));
+})(Dangerfox || (Dangerfox = {}));
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -235,13 +277,13 @@ var Dangerfox;
                     _super.apply(this, arguments);
                 }
                 InPlay.prototype.preload = function () {
-                    this.game.load.json("knight-data", "../../assets/data/knight.json");
+                    this.game.load.json("knight-data", "../../assets/data/firetroll.json");
                     this.player = new Cara.Components.Player(this.game);
-                    this.player.preload("../../assets/sprites/knight.png", 96, 96);
+                    this.player.preload("../../assets/sprites/firetroll.png", 96, 96);
                     this.enemies = new Array(1);
                     for (var i = 0; i < this.enemies.length; ++i) {
                         var enemy = new Cara.Components.Enemy(this.game);
-                        enemy.preload("../../assets/sprites/knight.png", 96, 96);
+                        enemy.preload("../../assets/sprites/firetroll.png", 96, 96);
                         this.enemies[i] = enemy;
                     }
                 };

@@ -7,17 +7,17 @@
 
         public preload()
         {
-            this.game.load.json("knight-data", "../../assets/data/knight.json");
+            this.game.load.json("knight-data", "../../assets/data/firetroll.json");
 
             this.player = new Components.Player(this.game);
-            this.player.preload("../../assets/sprites/knight.png", 96, 96);
+            this.player.preload("../../assets/sprites/firetroll.png", 96, 96);
 
             this.enemies = new Array<Components.Enemy>(1);
 
             for (var i: number = 0; i < this.enemies.length; ++i)
             {
                 var enemy = new Components.Enemy(this.game);
-                enemy.preload("../../assets/sprites/knight.png", 96, 96);
+                enemy.preload("../../assets/sprites/firetroll.png", 96, 96);
 
                 this.enemies[i] = enemy;
             }
