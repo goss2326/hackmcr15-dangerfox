@@ -114,8 +114,11 @@
   <ItemGroup>
     <Content Include="assets\sprites\knight.png" />
     <Content Include="assets\sprites\mage.png" />
+    <Content Include="assets\tilesets\logs_tile.png" />
+    <Content Include="assets\tilesets\map_tiles.png" />
     <Content Include="packages.config" />
     <Content Include="assets\data\knight.json" />
+    <Content Include="assets\tilemaps\testmap.json" />
     <None Include="scripts\lib\jquery\jquery-2.1.4.intellisense.js" />
     <Content Include="scripts\lib\jquery\jquery-2.1.4.js" />
     <Content Include="scripts\lib\jquery\jquery-2.1.4.min.js" />
@@ -147,11 +150,10 @@
     <Compile Include="Modules\HomeModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="assets\tilesets\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <TypeScriptCompile Include="scripts\source\Components\Character.ts" />
+    <TypeScriptCompile Include="scripts\source\Components\Map.ts" />
     <TypeScriptCompile Include="scripts\source\Components\Player.ts" />
     <TypeScriptCompile Include="scripts\source\GameStates\InPlay.ts" />
     <TypeScriptCompile Include="scripts\source\program.ts" />
@@ -191,7 +193,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>65294</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
