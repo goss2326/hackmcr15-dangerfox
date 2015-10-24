@@ -18,27 +18,7 @@
 
         public create(spriteData: any)
         {
-            super.create(new Phaser.Point(0, 0), new Phaser.Point(1, 1), Support.Direction.Right);
-
-            var animations = spriteData.animations;
-
-            this.sprite.animations.add("move-" + Support.Direction.Right.toString(), animations.moveRight, animations.moveFps, true);
-            this.sprite.animations.add("move-" + Support.Direction.Down.toString(), animations.moveDown, animations.moveFps, true);
-            this.sprite.animations.add("move-" + Support.Direction.Left.toString(), animations.moveLeft, animations.moveFps, true);
-            this.sprite.animations.add("move-" + Support.Direction.Up.toString(), animations.moveUp, animations.moveFps, true);
-
-            this.sprite.animations.add("idle-" + Support.Direction.Right.toString(), animations.idleRight, animations.idleFps, true);
-            this.sprite.animations.add("idle-" + Support.Direction.Down.toString(), animations.idleDown, animations.idleFps, true);
-            this.sprite.animations.add("idle-" + Support.Direction.Left.toString(), animations.idleLeft, animations.idleFps, true);
-            this.sprite.animations.add("idle-" + Support.Direction.Up.toString(), animations.idleUp, animations.idleFps, true);
-
-            this.sprite.animations.add("attack-" + Support.Direction.Right.toString(), animations.attackRight, animations.attackFps, true);
-            this.sprite.animations.add("attack-" + Support.Direction.Down.toString(), animations.attackDown, animations.attackFps, true);
-            this.sprite.animations.add("attack-" + Support.Direction.Left.toString(), animations.attackLeft, animations.attackFps, true);
-            this.sprite.animations.add("attack-" + Support.Direction.Up.toString(), animations.attackUp, animations.attackFps, true);
-
-            // play default
-            this.sprite.animations.play(Support.Direction.Down.toString());
+            super.create(new Phaser.Point(0, 0), new Phaser.Point(1, 1), spriteData);
         }
 
         public update()

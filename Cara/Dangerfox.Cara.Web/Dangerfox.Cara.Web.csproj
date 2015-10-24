@@ -153,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="scripts\source\Components\Character.ts" />
+    <TypeScriptCompile Include="scripts\source\Components\Enemy.ts" />
     <TypeScriptCompile Include="scripts\source\Components\Player.ts" />
     <TypeScriptCompile Include="scripts\source\GameStates\InPlay.ts" />
     <TypeScriptCompile Include="scripts\source\program.ts" />
