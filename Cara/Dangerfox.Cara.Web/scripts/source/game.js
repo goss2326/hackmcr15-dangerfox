@@ -87,6 +87,51 @@ var Dangerfox;
         })(Components = Cara.Components || (Cara.Components = {}));
     })(Cara = Dangerfox.Cara || (Dangerfox.Cara = {}));
 })(Dangerfox || (Dangerfox = {}));
+var Dangerfox;
+(function (Dangerfox) {
+    var Cara;
+    (function (Cara) {
+        var Components;
+        (function (Components) {
+            var Map = (function () {
+                function Map(game) {
+                    this.game = game;
+                }
+                Map.prototype.preload = function () {
+                    this.game.load.tilemap('map', '../../assets/tilemaps/testmap.json', null, Phaser.Tilemap.TILED_JSON);
+                    this.game.load.image('map_tiles', '../../assets/tilesets/map_tiles.png');
+                    this.game.load.image('logs_tile', '../../assets/tilesets/logs_tile.png');
+                    this.layers = new Array(13);
+                };
+                Map.prototype.create = function () {
+                    this.game.stage.backgroundColor = '#000000';
+                    this.map = this.game.add.tilemap('map');
+                    this.map.addTilesetImage('MapTiles', 'map_tiles');
+                    this.map.addTilesetImage('Logs', 'logs_tile');
+                    this.layers[0] = this.map.createLayer('Base');
+                    this.layers[1] = this.map.createLayer('Paths');
+                    this.layers[2] = this.map.createLayer('Trees');
+                    this.layers[3] = this.map.createLayer('Tower');
+                    this.layers[4] = this.map.createLayer('Inner-Ts');
+                    this.layers[5] = this.map.createLayer('Buildings');
+                    this.layers[6] = this.map.createLayer('Building-Ts');
+                    this.layers[7] = this.map.createLayer('Item-Ts');
+                    this.layers[8] = this.map.createLayer('Signs');
+                    this.layers[9] = this.map.createLayer('Wall-1');
+                    this.layers[10] = this.map.createLayer('Wall-2');
+                    this.layers[11] = this.map.createLayer('Wall-3');
+                    this.layers[12] = this.map.createLayer('Wall-4');
+                    for (var i = 0; i < this.layers.length; ++i) {
+                        this.layers[i].resizeWorld();
+                        this.layers[i].wrap = true;
+                    }
+                };
+                return Map;
+            })();
+            Components.Map = Map;
+        })(Components = Cara.Components || (Cara.Components = {}));
+    })(Cara = Dangerfox.Cara || (Dangerfox.Cara = {}));
+})(Dangerfox || (Dangerfox = {}));
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -206,11 +251,14 @@ var Dangerfox;
                 }
                 InPlay.prototype.preload = function () {
                     this.game.load.json("knight-data", "../../assets/data/knight.json");
+                    this.map = new Cara.Components.Map(this.game);
+                    this.map.preload();
                     this.player = new Cara.Components.Player(this.game);
                     this.player.preload("../../assets/sprites/knight.png", 96, 96);
                 };
                 InPlay.prototype.create = function () {
                     var knightData = this.game.cache.getJSON("knight-data");
+                    this.map.create();
                     this.player.create(knightData);
                 };
                 InPlay.prototype.update = function () {

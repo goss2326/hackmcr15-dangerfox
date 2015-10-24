@@ -3,7 +3,7 @@
     export class Map
     {
         protected map;
-        protected layer;
+        protected layers: Array<Phaser.TilemapLayer>;
         protected cursors;
 
         constructor(protected game: Phaser.Game)
@@ -28,6 +28,8 @@
                 'logs_tile',
                 '../../assets/tilesets/logs_tile.png'
             );
+
+            this.layers = new Array<Phaser.TilemapLayer>(13);
         }
 
         public create()
@@ -39,23 +41,25 @@
             this.map.addTilesetImage('MapTiles', 'map_tiles');
             this.map.addTilesetImage('Logs', 'logs_tile');
 
-            this.layer = this.map.createLayer('Base');
-            //this.layer = this.map.createLayer('Paths');
-            //this.layer = this.map.createLayer('Trees');
-            //this.layer = this.map.createLayer('Tower');
-            //this.layer = this.map.createLayer('Inner-Ts');
-            //this.layer = this.map.createLayer('Buildings');
-            //this.layer = this.map.createLayer('Building-Ts');
-            //this.layer = this.map.createLayer('Item-Ts');
-            //this.layer = this.map.createLayer('Signs');
-            //this.layer = this.map.createLayer('Wall-1');
-            //this.layer = this.map.createLayer('Wall-2');
-            //this.layer = this.map.createLayer('Wall-3');
-            //this.layer = this.map.createLayer('Wall-4');
+            this.layers[0] = this.map.createLayer('Base');
+            this.layers[1] = this.map.createLayer('Paths');
+            this.layers[2] = this.map.createLayer('Trees');
+            this.layers[3] = this.map.createLayer('Tower');
+            this.layers[4] = this.map.createLayer('Inner-Ts');
+            this.layers[5] = this.map.createLayer('Buildings');
+            this.layers[6] = this.map.createLayer('Building-Ts');
+            this.layers[7] = this.map.createLayer('Item-Ts');
+            this.layers[8] = this.map.createLayer('Signs');
+            this.layers[9] = this.map.createLayer('Wall-1');
+            this.layers[10] = this.map.createLayer('Wall-2');
+            this.layers[11] = this.map.createLayer('Wall-3');
+            this.layers[12] = this.map.createLayer('Wall-4');
 
-            this.layer.resizeWorld();
-
-            this.layer.wrap = true;
+            for (var i: number = 0; i < this.layers.length; ++i)
+            {
+                this.layers[i].resizeWorld();
+                this.layers[i].wrap = true;
+            }
         }
     }
 }
