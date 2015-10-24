@@ -2,7 +2,7 @@
 {
     export class Player extends Character
     {
-        constructor(game: Phaser.Game)
+        constructor(game: Phaser.Game, private spriteData: any)
         {
             super(game, "player", 32.0);
         }
