@@ -49,9 +49,8 @@
       <HintPath>..\packages\AjaxMin.4.48.4489.28432\lib\net20\AjaxMin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Clockwork, Version=1.2.0.17472, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Clockwork.1.2\lib\net45\Clockwork.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Clockwork">
+      <HintPath>..\packages\Clockwork.1.2\lib\Clockwork.dll</HintPath>
     </Reference>
     <Reference Include="EcmaScript.NET, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\YUICompressor.NET.2.0.0.0\lib\NET20\EcmaScript.NET.dll</HintPath>
@@ -158,7 +157,6 @@
     <Compile Include="Configuration\ComparableExtensions.cs" />
     <Compile Include="Configuration\HtmlHelpersExtensions.cs" />
     <Compile Include="Configuration\RazorConfiguration.cs" />
-    <Compile Include="Configuration\SecurityConfig.cs" />
     <Compile Include="Configuration\Verify.cs" />
     <Compile Include="Models\ResultModel.cs" />
     <Compile Include="Models\SendTextModel.cs" />
@@ -166,15 +164,11 @@
     <Compile Include="Modules\HomeModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <TypeScriptCompile Include="scripts\source\Components\Character.ts" />
-    <TypeScriptCompile Include="scripts\source\Components\KillQuest.ts" />
-    <TypeScriptCompile Include="scripts\source\Components\LootQuest.ts" />
     <TypeScriptCompile Include="scripts\source\Components\Item.ts" />
-    <TypeScriptCompile Include="scripts\source\Components\Potion.ts" />
+    <TypeScriptCompile Include="scripts\source\Components\Npc.ts" />
     <TypeScriptCompile Include="scripts\source\Support\Collection.ts" />
     <TypeScriptCompile Include="scripts\source\Components\Inventory.ts" />
     <TypeScriptCompile Include="scripts\source\Components\Map.ts" />

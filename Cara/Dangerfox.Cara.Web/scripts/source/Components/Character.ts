@@ -68,6 +68,10 @@
             // play default
             this.sprite.animations.play("idle-" + Support.Direction.Down.toString()); 
 
+            // configure physics
+            this.game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
+            this.sprite.body.collideWorldBounds = true;
+
             // setup bounding box
             var physics = spriteData.physics;
             var boundingBox = physics.boundingBox;

@@ -17,6 +17,7 @@
         private enemies: Array<Components.Enemy>;
         private items: Support.Collection<Components.Item>;
         private map: Components.Map;
+        private npcs: Array<Components.Npc>;
 
         constructor()
         {
@@ -34,18 +35,13 @@
 
             // change this for different player
             this.playerData = this.knightData;
-
-            for (var i: number = 0; i < this.config.items.length; i++) {
-                switch (this.config.items[i].type)
-                {
-                    case "potion":
-                        var item = new Components.Item(this.game, this.config.enemies[i].type);
-                        item.preload(
-                            this.config.items[i].image
-                        );
-                        break;
-                }
-                
+            var i: number;
+            for (i = 0; i < this.config.items.length; i++)
+            {
+                var item = new Components.Item(this.game, "potion");
+                item.preload(
+                    this.config.items[i].image
+                );
                 this.items.Add(item);
             }
 
@@ -57,9 +53,10 @@
                 this.playerData.spriteHeight
             );
 
+            // set up enemies
             this.enemies = new Array<Components.Enemy>(this.config.enemies.length);
-            
-            for (var i: number = 0; i < this.enemies.length; i++)
+
+            for (i = 0; i < this.enemies.length; i++)
             {
                 var enemy: Components.Enemy;
 
@@ -73,6 +70,8 @@
                             this.firetrollData.spriteWidth,
                             this.firetrollData.spriteHeight
                         );
+
+                        this.enemies[i] = enemy;
                         break;
 
                     case "icetroll":
@@ -83,6 +82,8 @@
                             this.icetrollData.spriteWidth,
                             this.icetrollData.spriteHeight
                         );
+
+                        this.enemies[i] = enemy;
                         break;
 
                     case "dragon":
@@ -93,10 +94,48 @@
                             this.dragonData.spriteWidth,
                             this.dragonData.spriteHeight
                         );
+
+                        this.enemies[i] = enemy;
+                        break;
+                }
+            }
+
+            // set up npcs
+            this.npcs = new Array<Components.Npc>(this.config.npcs.length);
+
+            for (var i: number = 0; i < this.npcs.length; i++)
+            {
+                var npc: Components.Npc;
+
+                switch (this.config.npcs[i].type)
+                {
+                    case "mage":
+                        npc = new Components.Npc(this.game, this.config.npcs[i].type);
+
+                        npc.preload(
+                            this.mageData.spritesheet,
+                            this.mageData.spriteWidth,
+                            this.mageData.spriteHeight
+                        );
                         break;
                 }
 
-                this.enemies[i] = enemy;
+                var quest: Components.Quest;
+                var questData = this.config.npcs[i];
+
+                switch (this.config.npcs[i].questType)
+                {
+                    case "kill":
+                        quest = new Components.KillQuest(this.game);
+                        quest.questId = questData.questId;
+                        quest.name = questData.name;
+                        quest.description = questData.description;
+                        quest.npcId = questData.npcId;
+                        quest.previousQuestId = questData.previousQuestId;
+                }
+
+                //npc.quest = quest;
+                this.npcs[i] = npc;
             }
         }
 
@@ -106,8 +145,6 @@
             this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
             this.map.create();
-
-            
 
             // create the player
             this.player.create(
@@ -123,7 +160,8 @@
             );
 
             // create the enemies
-            for (var i: number = 0; i < this.enemies.length; i++)
+            var i: number;
+            for (i = 0; i < this.enemies.length; i++)
             {
                 var enemyData = this.config.enemies[i];
                 switch (enemyData.type)
@@ -171,7 +209,31 @@
                         break;
                 }
             }
-            for (var i: number = 0; i < this.config.items.length; i++) {
+
+            // create the npcs
+            for (i = 0; i < this.npcs.length; i++)
+            {
+                var npcData = this.config.npcs[i];
+                switch (npcData.type)
+                {
+                    case "mage":
+                        this.npcs[i].create(
+                            100000000,
+                            0,
+                            0,
+                            Support.Direction.Down,
+                            new Phaser.Point(
+                                npcData.positionX,
+                                npcData.positionY
+                            ),
+                            this.mageData
+                        );
+                        break;
+                }
+            }
+
+            for (i = 0; i < this.config.items.length; i++)
+            {
                 this.items.GetItem(i).create(
                     this.config.items[i].heal,
                     new Phaser.Point(
@@ -180,6 +242,7 @@
                     )
                 );
             }
+
             this.game.camera.follow(this.player.sprite);
         }
 
@@ -197,13 +260,20 @@
                 enemy.update(this.player);
             }
 
+            for (var i: number = 0; i < this.npcs.length; ++i)
+            {
+                var npc = this.npcs[i];
+                this.game.physics.arcade.collide(npc.sprite, this.map.layerBase);
+                this.game.physics.arcade.collide(npc.sprite, this.player.sprite);
+            }
+
             for (var n: number = 0; n < this.items.Count(); n++)
             {
-                var item = this.items.GetItem(n);
-                if (this.game.physics.arcade.collide(this.player.sprite, item.sprite))
+                var potion = this.items.GetItem(n);
+                if (this.game.physics.arcade.collide(this.player.sprite, potion.sprite))
                 {
-                    this.player.pickUp(item);
-                    item.sprite.kill();
+                    this.player.pickUp(potion);
+                    potion.sprite.kill();
                     this.items.Delete(n);
                 }
             }
@@ -333,7 +403,7 @@
                 dataType: "json",
                 async: true,
                 contentType: "application/json",
-                success: response =>
+                success: () =>
                 {
                     //alert(response.Message);
                 },

@@ -3,10 +3,14 @@
     export class Player extends Character
     {
         private inventory: Inventory;
+        private quests: Support.Collection<Quest>;
+
         constructor(game: Phaser.Game)
         {
             super(game, "player");
             this.inventory = new Inventory();
+
+            this.quests = new Support.Collection<Quest>();
         }
 
         public preload(spritesheet: string, spriteWidth: number, spriteHeight: number)
@@ -34,6 +38,11 @@
             this.game.debug.text("Player Health: " + this.health, 25, 25, "#ffffff");
 
             this.processInput();
+        }
+
+        public receiveQuest(quest: Quest)
+        {
+            this.quests.Add(quest);
         }
 
         private processInput()
