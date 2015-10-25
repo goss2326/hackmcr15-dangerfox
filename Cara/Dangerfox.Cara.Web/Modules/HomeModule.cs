@@ -3,6 +3,7 @@ using Dangerfox.Cara.Web.Models;
 using Nancy;
 using Nancy.ModelBinding;
 using System;
+using System.Configuration;
 using System.Net;
 
 namespace Dangerfox.Cara.Web.Modules
@@ -56,6 +57,14 @@ namespace Dangerfox.Cara.Web.Modules
         private ResultModel Send(string phoneNumber, string from, string message)
         {
             var resultModel = new ResultModel();
+
+            if (!Convert.ToBoolean(ConfigurationManager.AppSettings["useApi"]))
+            {
+                resultModel.Success = true;
+                resultModel.Message = "API usage is currently turned off.";
+
+                return resultModel;
+            }
 
             try
             {
