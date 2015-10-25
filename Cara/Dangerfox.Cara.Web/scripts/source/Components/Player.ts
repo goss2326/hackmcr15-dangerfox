@@ -33,11 +33,7 @@
         public update() {
             this.game.debug.text("Player Health: " + this.health, 25, 25, "#ffffff");
             this.game.debug.text("Experience Points: " + this.experience, 25, 50, "#ffffff");
-
-            if (this.quests.Count() > 0) {
-                this.game.debug.text("Quest: " + this.quests.GetItem(0).description, 25, 75, "#ffffff");
-            }
-
+          
             this.processInput();
         }
 
@@ -50,6 +46,41 @@
                 }
             }
             return -1;
+        }
+
+        public hasCompletedQuest(questId: number): boolean
+        {
+            for (var i = 0; i < this.quests.Count(); i++)
+            {
+                var quest = this.quests.GetItem(i);
+                if (quest.questId === questId)
+                {
+                    return !quest.isActive;
+                }
+            }
+
+            return false;
+        }
+
+        public updateQuestStatus(enemy: Enemy)
+        {
+            for (var i = 0; i < this.quests.Count(); i++)
+            {
+                var quest = this.quests.GetItem(i);
+                if (!quest.isActive)
+                {
+                    continue;
+                }
+                
+                if (quest.type === "kill")
+                {
+                    var killQuest = <KillQuest>quest;
+                    if (killQuest.targetId === enemy.spriteKey)
+                    {
+                        killQuest.increaseKilled();
+                    }
+                }
+            }
         }
 
         public setCurrentQuestComplete(id: number) {

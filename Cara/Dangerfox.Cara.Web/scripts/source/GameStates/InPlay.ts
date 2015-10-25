@@ -250,6 +250,7 @@
                         questData.type,
                         questData.name,
                         questData.description,
+                        questData.completeMessage,
                         questData.previousQuestId,
                         questData.targetId,
                         questData.amount);
@@ -322,7 +323,7 @@
 
                     if (distance <= 100)
                     {
-                        var nextQuest = npc.getNextQuest();
+                        var nextQuest = npc.getNextQuest(this.player);
 
                         if (nextQuest !== null)
                         {
