@@ -2,18 +2,19 @@
 {
     export class Inventory
     {
-        public inventory: Support.Collection<String>;
+        public inventory: Support.Collection<Item>;
 
         constructor()
-        {   
+        {
+            this.inventory = new Support.Collection<Item>();
         }
 
-        public Add(item : String)
+        public Add(item: Item)
         {
             this.inventory.Add(item);
         }
 
-        public UseItem(usedItem : String)
+        public UseItem(usedItem: Item)
         {
             for (var n = 0; n <= this.inventory.Count(); n++)
             {

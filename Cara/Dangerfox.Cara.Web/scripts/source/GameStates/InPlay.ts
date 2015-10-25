@@ -11,11 +11,19 @@
         private firetrollData: any;
         private icetrollData: any;
         private dragonData: any;
+        private itemData: any;
 
         private player: Components.Player;
         private enemies: Array<Components.Enemy>;
-        private items: Array<Components.Item>;
+        private items: Support.Collection<Components.Item>;
         private map: Components.Map;
+
+        constructor()
+        {
+            super();
+
+            this.items = new Support.Collection<Components.Item>();
+        }
 
         public preload()
         {
@@ -121,6 +129,14 @@
             // change this for different player
             this.playerData = this.knightData;
 
+            for (var i: number = 0; i < this.config.items.length; i++) {
+                var item = new Components.Item(this.game, "potion");
+                item.preload(
+                    this.config.items[i].image
+                );
+                this.items.Add(item);
+            }
+
             this.player = new Components.Player(this.game);
 
             this.player.preload(
@@ -178,6 +194,8 @@
             this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
             this.map.create();
+
+            
 
             // create the player
             this.player.create(
@@ -241,7 +259,15 @@
                         break;
                 }
             }
-
+            for (var i: number = 0; i < this.config.items.length; i++) {
+                this.items.GetItem(i).create(
+                    this.config.items[i].heal,
+                    new Phaser.Point(
+                        this.config.items[i].positionX,
+                        this.config.items[i].positionY
+                    )
+                );
+            }
             this.game.camera.follow(this.player.sprite);
         }
 
@@ -259,11 +285,14 @@
                 enemy.update(this.player);
             }
 
-            for (var n: number = 0; n < this.items.length; n++)
+            for (var n: number = 0; n < this.items.Count(); n++)
             {
-                if (this.player.sprite.position.distance)
+                var potion = this.items.GetItem(n);
+                if (this.game.physics.arcade.collide(this.player.sprite, potion.sprite))
                 {
-
+                    this.player.pickUp(potion);
+                    potion.sprite.kill();
+                    this.items.Delete(n);
                 }
             }
         }

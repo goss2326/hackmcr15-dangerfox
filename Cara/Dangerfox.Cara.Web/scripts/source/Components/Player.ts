@@ -2,9 +2,11 @@
 {
     export class Player extends Character
     {
+        private inventory: Inventory;
         constructor(game: Phaser.Game)
         {
             super(game, "player");
+            this.inventory = new Inventory();
         }
 
         public preload(spritesheet: string, spriteWidth: number, spriteHeight: number)
@@ -122,6 +124,11 @@
             {
                 this.idle(this.direction);
             }
+        }
+
+        public pickUp(item: Item)
+        {
+            this.inventory.Add(item);
         }
     }
 }

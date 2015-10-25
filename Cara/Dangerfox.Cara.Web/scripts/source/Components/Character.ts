@@ -66,11 +66,7 @@
             this.sprite.animations.add("attack-" + Support.Direction.Up.toString(), animations.attackUp, animations.attackFps, false);
 
             // play default
-            this.sprite.animations.play("idle-" + Support.Direction.Down.toString());
-
-            // configure physics
-            this.game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
-            this.sprite.body.collideWorldBounds = true;
+            this.sprite.animations.play("idle-" + Support.Direction.Down.toString()); 
 
             // setup bounding box
             var physics = spriteData.physics;
