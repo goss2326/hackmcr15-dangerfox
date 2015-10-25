@@ -14,6 +14,7 @@
 
         private player: Components.Player;
         private enemies: Array<Components.Enemy>;
+        private items: Array<Components.Item>;
         private map: Components.Map;
 
         public preload()
@@ -152,13 +153,24 @@
 
         public update()
         {
+            this.game.physics.arcade.collide(this.player.sprite, this.map.layerBase);
+
             this.player.update();
 
             for (var i: number = 0; i < this.enemies.length; ++i)
             {
                 var enemy = this.enemies[i];
+                this.game.physics.arcade.collide(enemy.sprite, this.map.layerBase);
 
                 enemy.update(this.player);
+            }
+
+            for (var n: number = 0; n < this.items.length; n++)
+            {
+                if (this.player.sprite.position.distance)
+                {
+
+                }
             }
         }
 
