@@ -139,6 +139,7 @@
     <None Include="scripts\source\_references.js" />
     <Content Include="Views\_layouts\_master.cshtml" />
     <Content Include="Views\Home\index.cshtml" />
+    <Content Include="Views\Home\game.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -169,6 +170,7 @@
     <TypeScriptCompile Include="scripts\source\Components\Character.ts" />
     <TypeScriptCompile Include="scripts\source\Components\Item.ts" />
     <TypeScriptCompile Include="scripts\source\Components\Npc.ts" />
+    <TypeScriptCompile Include="scripts\source\Components\Potion.ts" />
     <TypeScriptCompile Include="scripts\source\Support\Collection.ts" />
     <TypeScriptCompile Include="scripts\source\Components\Inventory.ts" />
     <TypeScriptCompile Include="scripts\source\Components\Map.ts" />
