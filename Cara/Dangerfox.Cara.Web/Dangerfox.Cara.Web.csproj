@@ -116,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\sprites\dragon.png" />
+    <Content Include="assets\sprites\fireball.png" />
     <Content Include="assets\sprites\firetroll.png" />
     <Content Include="assets\sprites\icetroll.png" />
     <Content Include="assets\sprites\knight.png" />
