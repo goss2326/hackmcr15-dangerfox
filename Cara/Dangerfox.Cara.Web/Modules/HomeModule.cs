@@ -29,7 +29,9 @@ namespace Dangerfox.Cara.Web.Modules
                 return View["index"];
             }
 
-            var trySend = Send(mobileNumber, "4thWall", "Welcome to the Fourth Wall");
+            var trySend = Send(mobileNumber, "4thWall", "Welcome to the Fourth Wall! The world is under siege by an evil dictator. " +
+                "You must travel the land in order to find ways to breach the four walls of security and brave the dungeon of evil.");
+
             if (!trySend.Success)
             {
                 ViewBag.ErrorMessage = trySend.Message;
