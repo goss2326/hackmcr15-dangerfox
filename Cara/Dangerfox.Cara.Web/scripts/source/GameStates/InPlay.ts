@@ -326,6 +326,11 @@
                         if (nextQuest !== null)
                         {
                             this.player.receiveQuest(nextQuest);
+
+                            this.sendText("4thWall", "Quest: "
+                                + nextQuest.name + " - Description: "
+                                + nextQuest.description);
+
                             break;
                         }
                     }
