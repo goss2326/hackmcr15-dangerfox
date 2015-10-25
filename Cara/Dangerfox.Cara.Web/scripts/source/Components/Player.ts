@@ -1,16 +1,16 @@
 ﻿module Dangerfox.Cara.Components
 {
-    import Collection = Cara.Support.Collection;
-
     export class Player extends Character
     {
-        private quests: Collection<Quest>;
+        private inventory: Inventory;
+        private quests: Support.Collection<Quest>;
 
         constructor(game: Phaser.Game)
         {
             super(game, "player");
+            this.inventory = new Inventory();
 
-            this.quests = new Collection<Quest>();
+            this.quests = new Support.Collection<Quest>();
         }
 
         public preload(spritesheet: string, spriteWidth: number, spriteHeight: number)
@@ -133,6 +133,11 @@
             {
                 this.idle(this.direction);
             }
+        }
+
+        public pickUp(item: Item)
+        {
+            this.inventory.Add(item);
         }
     }
 }

@@ -9,103 +9,36 @@
         private firetrollData: any;
         private icetrollData: any;
         private dragonData: any;
+        private itemData: any;
 
         private player: Components.Player;
         private enemies: Array<Components.Enemy>;
-        private items: Array<Components.Item>;
+        private items: Support.Collection<Components.Item>;
         private map: Components.Map;
         private npcs: Array<Components.Npc>;
 
+        constructor() {
+            super();
+
+            this.items = new Support.Collection<Components.Item>();
+        }
+
         public preload() {
-            $.ajax({
-                method: "GET",
-                url: "../../assets/data/config.json",
-                dataType: "json",
-                async: false,
-                contentType: "application/json",
-                success: response => {
-                    this.config = response;
-                },
-                error: response1 => {
-                    alert("Unable to load config.");
-                }
-            });
-
-            $.ajax({
-                method: "GET",
-                url: this.config.knightData,
-                dataType: "json",
-                async: false,
-                contentType: "application/json",
-                success: response => {
-                    this.knightData = response;
-                },
-                error: response1 => {
-                    alert("Unable to load knight data.");
-                }
-            });
-
-            $.ajax({
-                method: "GET",
-                url: this.config.mageData,
-                dataType: "json",
-                async: false,
-                contentType: "application/json",
-                success: response => {
-                    this.mageData = response;
-                },
-                error: response1 => {
-                    alert("Unable to load mage data.");
-                }
-            });
-
-            $.ajax({
-                method: "GET",
-                url: this.config.firetrollData,
-                dataType: "json",
-                async: false,
-                contentType: "application/json",
-                success: response => {
-                    this.firetrollData = response;
-                },
-                error: response1 => {
-                    alert("Unable to load firetroll data.");
-                }
-            });
-
-            $.ajax({
-                method: "GET",
-                url: this.config.icetrollData,
-                dataType: "json",
-                async: false,
-                contentType: "application/json",
-                success: response => {
-                    this.icetrollData = response;
-                },
-                error: response1 => {
-                    alert("Unable to load icetroll data.");
-                }
-            });
-
-            $.ajax({
-                method: "GET",
-                url: this.config.dragonData,
-                dataType: "json",
-                async: false,
-                contentType: "application/json",
-                success: response => {
-                    this.dragonData = response;
-                },
-                error: response1 => {
-                    alert("Unable to load dragon data.");
-                }
-            });
+            this.loadJsonData();
 
             this.map = new Components.Map(this.game);
             this.map.preload();
 
             // change this for different player
             this.playerData = this.knightData;
+            var i: number;
+            for (i = 0; i < this.config.items.length; i++) {
+                var item = new Components.Item(this.game, "potion");
+                item.preload(
+                    this.config.items[i].image
+                );
+                this.items.Add(item);
+            }
 
             this.player = new Components.Player(this.game);
 
@@ -118,7 +51,7 @@
             // set up enemies
             this.enemies = new Array<Components.Enemy>(this.config.enemies.length);
 
-            for (var i: number = 0; i < this.enemies.length; i++) {
+            for (i = 0; i < this.enemies.length; i++) {
                 var enemy: Components.Enemy;
 
                 switch (this.config.enemies[i].type) {
@@ -130,6 +63,8 @@
                             this.firetrollData.spriteWidth,
                             this.firetrollData.spriteHeight
                         );
+
+                        this.enemies[i] = enemy;
                         break;
 
                     case "icetroll":
@@ -140,6 +75,8 @@
                             this.icetrollData.spriteWidth,
                             this.icetrollData.spriteHeight
                         );
+
+                        this.enemies[i] = enemy;
                         break;
 
                     case "dragon":
@@ -150,10 +87,10 @@
                             this.dragonData.spriteWidth,
                             this.dragonData.spriteHeight
                         );
+
+                        this.enemies[i] = enemy;
                         break;
                 }
-
-                this.enemies[i] = enemy;
             }
 
             // set up npcs
@@ -164,7 +101,7 @@
 
                 switch (this.config.enemies[i].type) {
                     case "mage":
-                        npc = new Components.Npc(this.game, this.config.enemies[i].type);
+                        npc = new Components.Npc(this.game, this.config.npcs[i].type);
 
                         npc.preload(
                             this.mageData.spriteSheet,
@@ -187,7 +124,7 @@
                         quest.previousQuestId = questData.previousQuestId;
                 }
 
-                npc.quest = quest;
+                //npc.quest = quest;
                 this.npcs[i] = npc;
             }
         }
@@ -212,7 +149,8 @@
             );
 
             // create the enemies
-            for (var i: number = 0; i < this.enemies.length; i++) {
+            var i: number;
+            for (i = 0; i < this.enemies.length; i++) {
                 var enemyData = this.config.enemies[i];
                 switch (enemyData.type) {
                     case "firetroll":
@@ -260,7 +198,7 @@
             }
 
             // create the npcs
-            for (var i: number = 0; i < this.npcs.length; i++) {
+            for (i = 0; i < this.npcs.length; i++) {
                 var npcData = this.config.npcs[i];
                 switch (npcData.type) {
                     case "mage":
@@ -279,6 +217,16 @@
                 }
             }
 
+            for (i = 0; i < this.config.items.length; i++) {
+                this.items.GetItem(i).create(
+                    this.config.items[i].heal,
+                    new Phaser.Point(
+                        this.config.items[i].positionX,
+                        this.config.items[i].positionY
+                    )
+                );
+            }
+
             this.game.camera.follow(this.player.sprite);
         }
 
@@ -294,9 +242,12 @@
                 enemy.update(this.player);
             }
 
-            for (var n: number = 0; n < this.items.length; n++) {
-                if (this.player.sprite.position.distance) {
-
+            for (var n: number = 0; n < this.items.Count(); n++) {
+                var potion = this.items.GetItem(n);
+                if (this.game.physics.arcade.collide(this.player.sprite, potion.sprite)) {
+                    this.player.pickUp(potion);
+                    potion.sprite.kill();
+                    this.items.Delete(n);
                 }
             }
         }
@@ -309,6 +260,113 @@
 
                 enemy.render();
             }
+        }
+
+        private loadJsonData() {
+            $.ajax({
+                method: "GET",
+                url: "../../assets/data/config.json",
+                dataType: "json",
+                async: false,
+                contentType: "application/json",
+                success: response => {
+                    this.config = response;
+                },
+                error: () => {
+                    alert("Unable to load config.");
+                }
+            });
+
+            $.ajax({
+                method: "GET",
+                url: this.config.knightData,
+                dataType: "json",
+                async: false,
+                contentType: "application/json",
+                success: response => {
+                    this.knightData = response;
+                },
+                error: () => {
+                    alert("Unable to load knight data.");
+                }
+            });
+
+            $.ajax({
+                method: "GET",
+                url: this.config.mageData,
+                dataType: "json",
+                async: false,
+                contentType: "application/json",
+                success: response => {
+                    this.mageData = response;
+                },
+                error: () => {
+                    alert("Unable to load mage data.");
+                }
+            });
+
+            $.ajax({
+                method: "GET",
+                url: this.config.firetrollData,
+                dataType: "json",
+                async: false,
+                contentType: "application/json",
+                success: response => {
+                    this.firetrollData = response;
+                },
+                error: () => {
+                    alert("Unable to load firetroll data.");
+                }
+            });
+
+            $.ajax({
+                method: "GET",
+                url: this.config.icetrollData,
+                dataType: "json",
+                async: false,
+                contentType: "application/json",
+                success: response => {
+                    this.icetrollData = response;
+                },
+                error: () => {
+                    alert("Unable to load icetroll data.");
+                }
+            });
+
+            $.ajax({
+                method: "GET",
+                url: this.config.dragonData,
+                dataType: "json",
+                async: false,
+                contentType: "application/json",
+                success: response => {
+                    this.dragonData = response;
+                },
+                error: () => {
+                    alert("Unable to load dragon data.");
+                }
+            });
+        }
+
+        private sendText(phoneNumber: string, from: string, message: string) {
+            $.ajax({
+                method: "POST",
+                url: "/send-text",
+                data: JSON.stringify({
+                    "PhoneNumber": phoneNumber,
+                    "From": from,
+                    "Message": message
+                }),
+                dataType: "json",
+                async: true,
+                contentType: "application/json",
+                success: () => {
+                    //alert(response.Message);
+                },
+                error: () => {
+                    alert("Unable to send text data.");
+                }
+            });
         }
     }
 }
