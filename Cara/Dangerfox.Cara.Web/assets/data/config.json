@@ -158,19 +158,27 @@
       "positionX": 1728,
       "positionY": 5024,
       "quests": [
+
         {
           "questId": 0,
-          "questType": "kill",
+          "type": "kill",
           "name": "Kill the dragon",
           "description": "The half-blind dragon keeps stealing our eggs from the village square! Go and kill it for us! If you do, I'll tell you where you can learn the secret of fire.",
           "previousQuestId": null
         },
         {
           "questId": 1,
+          "type": "kill",
+          "name": "Kill the trolls",
+          "description": "There are trolls in the wilderness! Please kill them so they stop baiting us on facebook!",
+          "previousQuestId": 0
+        },
+        {
+          "questId": 2,
           "type": "loot",
           "name": "Fireman Sam",
           "description": "There is a man who lives alone in the wilderness to the south. Find him and learn his secrets.",
-          "previousQuestId": 0
+          "previousQuestId": 1
         }
       ]
     }
