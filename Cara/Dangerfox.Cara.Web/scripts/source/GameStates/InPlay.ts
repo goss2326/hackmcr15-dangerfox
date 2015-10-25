@@ -1,5 +1,7 @@
-﻿module Dangerfox.Cara.GameStates {
-    export class InPlay extends Phaser.State {
+﻿module Dangerfox.Cara.GameStates
+{
+    export class InPlay extends Phaser.State
+    {
         private config: any;
         private playerData: any;
 
@@ -17,13 +19,15 @@
         private map: Components.Map;
         private npcs: Array<Components.Npc>;
 
-        constructor() {
+        constructor()
+        {
             super();
 
             this.items = new Support.Collection<Components.Item>();
         }
 
-        public preload() {
+        public preload()
+        {
             this.loadJsonData();
 
             this.map = new Components.Map(this.game);
@@ -32,7 +36,8 @@
             // change this for different player
             this.playerData = this.knightData;
             var i: number;
-            for (i = 0; i < this.config.items.length; i++) {
+            for (i = 0; i < this.config.items.length; i++)
+            {
                 var item = new Components.Item(this.game, "potion");
                 item.preload(
                     this.config.items[i].image
@@ -51,10 +56,12 @@
             // set up enemies
             this.enemies = new Array<Components.Enemy>(this.config.enemies.length);
 
-            for (i = 0; i < this.enemies.length; i++) {
+            for (i = 0; i < this.enemies.length; i++)
+            {
                 var enemy: Components.Enemy;
 
-                switch (this.config.enemies[i].type) {
+                switch (this.config.enemies[i].type)
+                {
                     case "firetroll":
                         enemy = new Components.Enemy(this.game, this.config.enemies[i].type);
 
@@ -96,15 +103,17 @@
             // set up npcs
             this.npcs = new Array<Components.Npc>(this.config.npcs.length);
 
-            for (var i: number = 0; i < this.npcs.length; i++) {
+            for (var i: number = 0; i < this.npcs.length; i++)
+            {
                 var npc: Components.Npc;
 
-                switch (this.config.enemies[i].type) {
+                switch (this.config.npcs[i].type)
+                {
                     case "mage":
                         npc = new Components.Npc(this.game, this.config.npcs[i].type);
 
                         npc.preload(
-                            this.mageData.spriteSheet,
+                            this.mageData.spritesheet,
                             this.mageData.spriteWidth,
                             this.mageData.spriteHeight
                         );
@@ -114,7 +123,8 @@
                 var quest: Components.Quest;
                 var questData = this.config.npcs[i];
 
-                switch (this.config.npcs[i].questType) {
+                switch (this.config.npcs[i].questType)
+                {
                     case "kill":
                         quest = new Components.KillQuest(this.game);
                         quest.questId = questData.questId;
@@ -129,7 +139,8 @@
             }
         }
 
-        public create() {
+        public create()
+        {
             // Setup the physics system
             this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -150,9 +161,11 @@
 
             // create the enemies
             var i: number;
-            for (i = 0; i < this.enemies.length; i++) {
+            for (i = 0; i < this.enemies.length; i++)
+            {
                 var enemyData = this.config.enemies[i];
-                switch (enemyData.type) {
+                switch (enemyData.type)
+                {
                     case "firetroll":
                         this.enemies[i].create(
                             enemyData.health,
@@ -198,9 +211,11 @@
             }
 
             // create the npcs
-            for (i = 0; i < this.npcs.length; i++) {
+            for (i = 0; i < this.npcs.length; i++)
+            {
                 var npcData = this.config.npcs[i];
-                switch (npcData.type) {
+                switch (npcData.type)
+                {
                     case "mage":
                         this.npcs[i].create(
                             100000000,
@@ -217,7 +232,8 @@
                 }
             }
 
-            for (i = 0; i < this.config.items.length; i++) {
+            for (i = 0; i < this.config.items.length; i++)
+            {
                 this.items.GetItem(i).create(
                     this.config.items[i].heal,
                     new Phaser.Point(
@@ -230,21 +246,32 @@
             this.game.camera.follow(this.player.sprite);
         }
 
-        public update() {
+        public update()
+        {
             this.game.physics.arcade.collide(this.player.sprite, this.map.layerBase);
 
             this.player.update();
 
-            for (var i: number = 0; i < this.enemies.length; ++i) {
+            for (var i: number = 0; i < this.enemies.length; ++i)
+            {
                 var enemy = this.enemies[i];
                 this.game.physics.arcade.collide(enemy.sprite, this.map.layerBase);
 
                 enemy.update(this.player);
             }
 
-            for (var n: number = 0; n < this.items.Count(); n++) {
+            for (var i: number = 0; i < this.npcs.length; ++i)
+            {
+                var npc = this.npcs[i];
+                this.game.physics.arcade.collide(npc.sprite, this.map.layerBase);
+                this.game.physics.arcade.collide(npc.sprite, this.player.sprite);
+            }
+
+            for (var n: number = 0; n < this.items.Count(); n++)
+            {
                 var potion = this.items.GetItem(n);
-                if (this.game.physics.arcade.collide(this.player.sprite, potion.sprite)) {
+                if (this.game.physics.arcade.collide(this.player.sprite, potion.sprite))
+                {
                     this.player.pickUp(potion);
                     potion.sprite.kill();
                     this.items.Delete(n);
@@ -252,27 +279,32 @@
             }
         }
 
-        public render() {
+        public render()
+        {
             this.player.render();
 
-            for (var i: number = 0; i < this.enemies.length; ++i) {
+            for (var i: number = 0; i < this.enemies.length; ++i)
+            {
                 var enemy = this.enemies[i];
 
                 enemy.render();
             }
         }
 
-        private loadJsonData() {
+        private loadJsonData()
+        {
             $.ajax({
                 method: "GET",
                 url: "../../assets/data/config.json",
                 dataType: "json",
                 async: false,
                 contentType: "application/json",
-                success: response => {
+                success: response =>
+                {
                     this.config = response;
                 },
-                error: () => {
+                error: () =>
+                {
                     alert("Unable to load config.");
                 }
             });
@@ -283,10 +315,12 @@
                 dataType: "json",
                 async: false,
                 contentType: "application/json",
-                success: response => {
+                success: response =>
+                {
                     this.knightData = response;
                 },
-                error: () => {
+                error: () =>
+                {
                     alert("Unable to load knight data.");
                 }
             });
@@ -297,10 +331,12 @@
                 dataType: "json",
                 async: false,
                 contentType: "application/json",
-                success: response => {
+                success: response =>
+                {
                     this.mageData = response;
                 },
-                error: () => {
+                error: () =>
+                {
                     alert("Unable to load mage data.");
                 }
             });
@@ -311,10 +347,12 @@
                 dataType: "json",
                 async: false,
                 contentType: "application/json",
-                success: response => {
+                success: response =>
+                {
                     this.firetrollData = response;
                 },
-                error: () => {
+                error: () =>
+                {
                     alert("Unable to load firetroll data.");
                 }
             });
@@ -325,10 +363,12 @@
                 dataType: "json",
                 async: false,
                 contentType: "application/json",
-                success: response => {
+                success: response =>
+                {
                     this.icetrollData = response;
                 },
-                error: () => {
+                error: () =>
+                {
                     alert("Unable to load icetroll data.");
                 }
             });
@@ -339,16 +379,19 @@
                 dataType: "json",
                 async: false,
                 contentType: "application/json",
-                success: response => {
+                success: response =>
+                {
                     this.dragonData = response;
                 },
-                error: () => {
+                error: () =>
+                {
                     alert("Unable to load dragon data.");
                 }
             });
         }
 
-        private sendText(phoneNumber: string, from: string, message: string) {
+        private sendText(phoneNumber: string, from: string, message: string)
+        {
             $.ajax({
                 method: "POST",
                 url: "/send-text",
@@ -360,10 +403,12 @@
                 dataType: "json",
                 async: true,
                 contentType: "application/json",
-                success: () => {
+                success: () =>
+                {
                     //alert(response.Message);
                 },
-                error: () => {
+                error: () =>
+                {
                     alert("Unable to send text data.");
                 }
             });
