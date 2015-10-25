@@ -45,10 +45,29 @@
             this.quests.Add(quest);
         }
 
+        public pickUp(item: Item) {
+            this.inventory.Add(item);
+        }
+
+        public usePotion(potion: Item) {
+            if (this.health < 2000) {
+                this.health += potion.heal;
+                this.inventory.UseItem(potion);
+            }
+        }
+
         private processInput()
         {
             var input: boolean = false;
             this.attacking = false;
+
+            if (this.game.input.keyboard.isDown(Phaser.Keyboard.R)) {
+                var potion = this.inventory.GetPotion();
+                if (potion != null)
+                {
+                    this.usePotion(this.inventory.GetPotion());
+                }
+            }
 
             if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
             {
@@ -135,9 +154,6 @@
             }
         }
 
-        public pickUp(item: Item)
-        {
-            this.inventory.Add(item);
-        }
+
     }
 }

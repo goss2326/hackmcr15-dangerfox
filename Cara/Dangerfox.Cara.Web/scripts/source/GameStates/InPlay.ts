@@ -35,13 +35,17 @@
 
             // change this for different player
             this.playerData = this.knightData;
-            var i: number;
-            for (i = 0; i < this.config.items.length; i++)
-            {
-                var item = new Components.Item(this.game, "potion");
-                item.preload(
-                    this.config.items[i].image
-                );
+
+            for (var i: number = 0; i < this.config.items.length; i++) {
+                switch (this.config.items[i].type) {
+                    case "potion":
+                        var item = new Components.Item(this.game, this.config.items[i].type);
+                        item.preload(
+                            this.config.items[i].image
+                        );
+                        break;
+                }
+
                 this.items.Add(item);
             }
 
@@ -269,11 +273,11 @@
 
             for (var n: number = 0; n < this.items.Count(); n++)
             {
-                var potion = this.items.GetItem(n);
-                if (this.game.physics.arcade.collide(this.player.sprite, potion.sprite))
+                var item = this.items.GetItem(n);
+                if (this.game.physics.arcade.collide(this.player.sprite, item.sprite))
                 {
-                    this.player.pickUp(potion);
-                    potion.sprite.kill();
+                    this.player.pickUp(item);
+                    item.sprite.kill();
                     this.items.Delete(n);
                 }
             }

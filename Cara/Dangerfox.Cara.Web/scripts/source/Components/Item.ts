@@ -2,12 +2,13 @@
 {
     export class Item
     {
+        public type: String;
         public heal: number;
         public sprite: Phaser.Sprite;
 
         constructor(protected game: Phaser.Game, private spriteKey: string)
         {
-
+            this.type = spriteKey;
         }
 
         public preload(spritesheetUrl: string)
