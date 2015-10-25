@@ -40,9 +40,18 @@
 
             if (distance <= 300)
             {
-                if (distance <= 50)
+                if (distance <= 100)
                 {
-                    this.attacking = true;
+                    if (this.sprite.alive)
+                    {
+                        this.attacking = true;
+                        player.takeDamage(this.baseDamage / this.attackFps);
+                    }
+
+                    if (player.attacking)
+                    {
+                        this.takeDamage(player.baseDamage / player.attackFps);
+                    }
                 }
                 else
                 {
@@ -67,8 +76,7 @@
                 {
                     this.direction = Support.Direction.Down;
                 }
-
-                this.move(this.direction);
+                
                 if (this.attacking)
                 {
                     switch (this.direction)
@@ -92,6 +100,8 @@
                 }
                 else
                 {
+                    this.move(this.direction);
+
                     switch (this.direction)
                     {
                         case Support.Direction.Right:
@@ -125,16 +135,6 @@
             {
                 this.stopMovement();
                 player.stopMovement();
-
-                if (player.attacking)
-                {
-                    this.takeDamage(player.baseDamage / player.attackFps);
-                }
-
-                if (this.attacking)
-                {
-                    player.takeDamage(this.baseDamage / this.attackFps);
-                }
             }
 
             this.game.physics.arcade.collide(player.sprite, this.sprite);

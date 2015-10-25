@@ -50,12 +50,15 @@
             this.quests.Add(quest);
         }
 
-        public pickUp(item: Item) {
+        public pickUp(item: Item)
+        {
             this.inventory.Add(item);
         }
 
-        public usePotion(potion: Item) {
-            if (this.health < 2000) {
+        public usePotion(potion: Item)
+        {
+            if (this.health < 2000)
+            {
                 this.health += potion.heal;
                 this.inventory.UseItem(potion);
             }
@@ -66,7 +69,8 @@
             var input: boolean = false;
             this.attacking = false;
 
-            if (this.game.input.keyboard.isDown(Phaser.Keyboard.R)) {
+            if (this.game.input.keyboard.isDown(Phaser.Keyboard.R))
+            {
                 var potion = this.inventory.GetPotion();
                 if (potion != null)
                 {

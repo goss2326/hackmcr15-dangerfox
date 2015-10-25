@@ -36,13 +36,15 @@
             // change this for different player
             this.playerData = this.knightData;
 
-            for (var i: number = 0; i < this.config.items.length; i++) {
-                switch (this.config.items[i].type) {
+            for (var i: number = 0; i < this.config.items.length; i++)
+            {
+                switch (this.config.items[i].type)
+                {
                     case "potion":
                         var item = new Components.Item(this.game, this.config.items[i].type);
-                item.preload(
-                    this.config.items[i].image
-                );
+                        item.preload(
+                            this.config.items[i].image
+                        );
                         break;
                 }
 
@@ -235,7 +237,7 @@
                         );
                         break;
                     default:
-                            break;
+                        break;
                 }
 
                 for (var j = 0; j < npcData.quests.length; j++)
@@ -250,7 +252,7 @@
                         questData.previousQuestId,
                         questData.targetId,
                         questData.amount);
-            }
+                }
             }
 
             for (i = 0; i < this.config.items.length; i++)
@@ -284,8 +286,10 @@
             for (var i: number = 0; i < this.npcs.length; ++i)
             {
                 var npc = this.npcs[i];
-                this.game.physics.arcade.collide(npc.sprite, this.map.layerBase);
-                this.game.physics.arcade.collide(npc.sprite, this.player.sprite);
+                if (this.game.physics.arcade.collide(npc.sprite, this.player.sprite))
+                {
+                    this.game.debug.text("hit npc", 90, 500);
+                }
             }
 
             for (var n: number = 0; n < this.items.Count(); n++)
@@ -304,6 +308,7 @@
                 if (key.key == "t")
                 {
                     this.sendText("4thWall", "This is the voice of the mysterons!");
+                }
             }
 
             if (this.game.input.keyboard.isDown(Phaser.Keyboard.E))
@@ -327,7 +332,6 @@
                 }
             }
         }
-        }
 
         public render()
         {
@@ -338,6 +342,13 @@
                 var enemy = this.enemies[i];
 
                 enemy.render();
+            }
+
+            for (var i: number = 0; i < this.npcs.length; ++i)
+            {
+                var npc = this.npcs[i];
+
+                npc.render();
             }
         }
 

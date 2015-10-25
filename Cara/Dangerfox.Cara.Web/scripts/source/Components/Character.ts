@@ -47,6 +47,8 @@
                 this.spriteKey
             );
 
+            //this.sprite.anchor = new Phaser.Point(0.5, 0.5);
+
             // animations
             var animations = spriteData.animations;
 
@@ -71,6 +73,7 @@
             // configure physics
             this.game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
             this.sprite.body.collideWorldBounds = true;
+            //this.sprite.body.immovable = true;
 
             // setup bounding box
             var physics = spriteData.physics;

@@ -1,5 +1,7 @@
-﻿module Dangerfox.Cara.Components {
-    export class Npc extends Character {
+﻿module Dangerfox.Cara.Components
+{
+    export class Npc extends Character
+    {
         public quests: Support.Collection<Quest>;
 
         constructor(game: Phaser.Game, spriteKey: string)
@@ -9,7 +11,8 @@
             this.quests = new Support.Collection<Quest>();
         }
 
-        public preload(spritesheet: string, spriteWidth: number, spriteHeight: number) {
+        public preload(spritesheet: string, spriteWidth: number, spriteHeight: number)
+        {
             super.preload(
                 spritesheet,
                 spriteWidth,
@@ -23,8 +26,11 @@
             movementSpeed: number,
             direction: Support.Direction,
             startPosition: Phaser.Point,
-            spriteData: any) {
+            spriteData: any)
+        {
             super.create(100000000, 0, 96, direction, startPosition, spriteData);
+
+            this.sprite.body.immovable = true;
         }
 
         public addQuest(
@@ -34,8 +40,10 @@
             description: string,
             previousQuestId: number,
             targetId: number,
-            amount: number) {
-            switch (type) {
+            amount: number)
+        {
+            switch (type)
+            {
                 case "kill":
                     var quest1 = new KillQuest(this.game);
                     quest1.questId = questId;
@@ -63,7 +71,7 @@
             }
         }
 
-        public getNextQuest():Quest
+        public getNextQuest(): Quest
         {
             if (this.quests.Count() > 0)
             {
