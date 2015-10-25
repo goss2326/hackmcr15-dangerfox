@@ -9,10 +9,9 @@
         public previousQuestId: number;
         public isActive: boolean;
 
-        constructor(game: Phaser.Game)
+        constructor(protected game: Phaser.Game)
         {
+            this.isActive = true;
         }
-
-
     }
 }

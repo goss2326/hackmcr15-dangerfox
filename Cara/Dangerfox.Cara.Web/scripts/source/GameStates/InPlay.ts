@@ -1,7 +1,5 @@
-﻿module Dangerfox.Cara.GameStates
-{
-    export class InPlay extends Phaser.State
-    {
+﻿module Dangerfox.Cara.GameStates {
+    export class InPlay extends Phaser.State {
         private config: any;
         private playerData: any;
 
@@ -16,21 +14,19 @@
         private enemies: Array<Components.Enemy>;
         private items: Array<Components.Item>;
         private map: Components.Map;
+        private npcs: Array<Components.Npc>;
 
-        public preload()
-        {
+        public preload() {
             $.ajax({
                 method: "GET",
                 url: "../../assets/data/config.json",
                 dataType: "json",
                 async: false,
                 contentType: "application/json",
-                success: response =>
-                {
+                success: response => {
                     this.config = response;
                 },
-                error: response1 =>
-                {
+                error: response1 => {
                     alert("Unable to load config.");
                 }
             });
@@ -41,12 +37,10 @@
                 dataType: "json",
                 async: false,
                 contentType: "application/json",
-                success: response =>
-                {
+                success: response => {
                     this.knightData = response;
                 },
-                error: response1 =>
-                {
+                error: response1 => {
                     alert("Unable to load knight data.");
                 }
             });
@@ -57,12 +51,10 @@
                 dataType: "json",
                 async: false,
                 contentType: "application/json",
-                success: response =>
-                {
+                success: response => {
                     this.mageData = response;
                 },
-                error: response1 =>
-                {
+                error: response1 => {
                     alert("Unable to load mage data.");
                 }
             });
@@ -73,12 +65,10 @@
                 dataType: "json",
                 async: false,
                 contentType: "application/json",
-                success: response =>
-                {
+                success: response => {
                     this.firetrollData = response;
                 },
-                error: response1 =>
-                {
+                error: response1 => {
                     alert("Unable to load firetroll data.");
                 }
             });
@@ -89,12 +79,10 @@
                 dataType: "json",
                 async: false,
                 contentType: "application/json",
-                success: response =>
-                {
+                success: response => {
                     this.icetrollData = response;
                 },
-                error: response1 =>
-                {
+                error: response1 => {
                     alert("Unable to load icetroll data.");
                 }
             });
@@ -105,12 +93,10 @@
                 dataType: "json",
                 async: false,
                 contentType: "application/json",
-                success: response =>
-                {
+                success: response => {
                     this.dragonData = response;
                 },
-                error: response1 =>
-                {
+                error: response1 => {
                     alert("Unable to load dragon data.");
                 }
             });
@@ -129,14 +115,13 @@
                 this.playerData.spriteHeight
             );
 
+            // set up enemies
             this.enemies = new Array<Components.Enemy>(this.config.enemies.length);
-            
-            for (var i: number = 0; i < this.enemies.length; i++)
-            {
+
+            for (var i: number = 0; i < this.enemies.length; i++) {
                 var enemy: Components.Enemy;
 
-                switch (this.config.enemies[i].type)
-                {
+                switch (this.config.enemies[i].type) {
                     case "firetroll":
                         enemy = new Components.Enemy(this.game, this.config.enemies[i].type);
 
@@ -170,10 +155,44 @@
 
                 this.enemies[i] = enemy;
             }
+
+            // set up npcs
+            this.npcs = new Array<Components.Npc>(this.config.npcs.length);
+
+            for (var i: number = 0; i < this.npcs.length; i++) {
+                var npc: Components.Npc;
+
+                switch (this.config.enemies[i].type) {
+                    case "mage":
+                        npc = new Components.Npc(this.game, this.config.enemies[i].type);
+
+                        npc.preload(
+                            this.mageData.spriteSheet,
+                            this.mageData.spriteWidth,
+                            this.mageData.spriteHeight
+                        );
+                        break;
+                }
+
+                var quest: Components.Quest;
+                var questData = this.config.npcs[i];
+
+                switch (this.config.npcs[i].questType) {
+                    case "kill":
+                        quest = new Components.KillQuest(this.game);
+                        quest.questId = questData.questId;
+                        quest.name = questData.name;
+                        quest.description = questData.description;
+                        quest.npcId = questData.npcId;
+                        quest.previousQuestId = questData.previousQuestId;
+                }
+
+                npc.quest = quest;
+                this.npcs[i] = npc;
+            }
         }
 
-        public create()
-        {
+        public create() {
             // Setup the physics system
             this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -193,11 +212,9 @@
             );
 
             // create the enemies
-            for (var i: number = 0; i < this.enemies.length; i++)
-            {
+            for (var i: number = 0; i < this.enemies.length; i++) {
                 var enemyData = this.config.enemies[i];
-                switch (enemyData.type)
-                {
+                switch (enemyData.type) {
                     case "firetroll":
                         this.enemies[i].create(
                             enemyData.health,
@@ -242,38 +259,52 @@
                 }
             }
 
+            // create the npcs
+            for (var i: number = 0; i < this.npcs.length; i++) {
+                var npcData = this.config.npcs[i];
+                switch (npcData.type) {
+                    case "mage":
+                        this.npcs[i].create(
+                            100000000,
+                            0,
+                            0,
+                            Support.Direction.Down,
+                            new Phaser.Point(
+                                npcData.positionX,
+                                npcData.positionY
+                            ),
+                            this.mageData
+                        );
+                        break;
+                }
+            }
+
             this.game.camera.follow(this.player.sprite);
         }
 
-        public update()
-        {
+        public update() {
             this.game.physics.arcade.collide(this.player.sprite, this.map.layerBase);
 
             this.player.update();
 
-            for (var i: number = 0; i < this.enemies.length; ++i)
-            {
+            for (var i: number = 0; i < this.enemies.length; ++i) {
                 var enemy = this.enemies[i];
                 this.game.physics.arcade.collide(enemy.sprite, this.map.layerBase);
 
                 enemy.update(this.player);
             }
 
-            for (var n: number = 0; n < this.items.length; n++)
-            {
-                if (this.player.sprite.position.distance)
-                {
+            for (var n: number = 0; n < this.items.length; n++) {
+                if (this.player.sprite.position.distance) {
 
                 }
             }
         }
 
-        public render()
-        {
+        public render() {
             this.player.render();
 
-            for (var i: number = 0; i < this.enemies.length; ++i)
-            {
+            for (var i: number = 0; i < this.enemies.length; ++i) {
                 var enemy = this.enemies[i];
 
                 enemy.render();

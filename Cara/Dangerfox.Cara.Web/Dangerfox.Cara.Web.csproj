@@ -166,6 +166,7 @@
     <TypeScriptCompile Include="scripts\source\Components\KillQuest.ts" />
     <TypeScriptCompile Include="scripts\source\Components\LootQuest.ts" />
     <TypeScriptCompile Include="scripts\source\Components\Item.ts" />
+    <TypeScriptCompile Include="scripts\source\Components\Npc.ts" />
     <TypeScriptCompile Include="scripts\source\Support\Collection.ts" />
     <TypeScriptCompile Include="scripts\source\Components\Inventory.ts" />
     <TypeScriptCompile Include="scripts\source\Components\Map.ts" />

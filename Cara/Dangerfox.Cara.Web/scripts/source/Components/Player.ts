@@ -1,10 +1,16 @@
 ﻿module Dangerfox.Cara.Components
 {
+    import Collection = Cara.Support.Collection;
+
     export class Player extends Character
     {
+        private quests: Collection<Quest>;
+
         constructor(game: Phaser.Game)
         {
             super(game, "player");
+
+            this.quests = new Collection<Quest>();
         }
 
         public preload(spritesheet: string, spriteWidth: number, spriteHeight: number)
@@ -32,6 +38,11 @@
             this.game.debug.text("Player Health: " + this.health, 25, 25, "#ffffff");
 
             this.processInput();
+        }
+
+        public receiveQuest(quest: Quest)
+        {
+            this.quests.Add(quest);
         }
 
         private processInput()
