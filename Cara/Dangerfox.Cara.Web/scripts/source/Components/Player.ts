@@ -37,6 +37,11 @@
         {
             this.game.debug.text("Player Health: " + this.health, 25, 25, "#ffffff");
 
+            if (this.quests.Count() > 0)
+            {
+                this.game.debug.text("Quest: " + this.quests.GetItem(0).description, 25, 50, "#ffffff");
+            }
+
             this.processInput();
         }
 

@@ -214,6 +214,7 @@
             for (i = 0; i < this.npcs.length; i++)
             {
                 var npcData = this.config.npcs[i];
+
                 switch (npcData.type)
                 {
                     case "mage":
@@ -229,6 +230,22 @@
                             this.mageData
                         );
                         break;
+                    default:
+                            break;
+                }
+
+                for (var j = 0; j < npcData.quests.length; j++)
+                {
+                    var questData = this.config.npcs[i].quests[j];
+
+                    this.npcs[i].addQuest(
+                        questData.questId,
+                        questData.type,
+                        questData.name,
+                        questData.description,
+                        questData.previousQuestId,
+                        questData.targetId,
+                        questData.amount);
                 }
             }
 
@@ -275,6 +292,27 @@
                     this.player.pickUp(potion);
                     potion.sprite.kill();
                     this.items.Delete(n);
+                }
+            }
+
+            if (this.game.input.keyboard.isDown(Phaser.Keyboard.E))
+            {
+                for (var n: number = 0; n < this.npcs.length; n++)
+                {
+                    var npc = this.npcs[n];
+
+                    var distance = npc.sprite.position.distance(this.player.sprite.position);
+
+                    if (distance <= 100)
+                    {
+                        var nextQuest = npc.getNextQuest();
+
+                        if (nextQuest !== null)
+                        {
+                            this.player.receiveQuest(nextQuest);
+                            break;
+                        }
+                    }
                 }
             }
         }

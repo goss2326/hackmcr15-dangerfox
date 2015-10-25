@@ -1,69 +1,80 @@
 ﻿{
-    "knightData": "../../assets/data/knight.json",
-    "mageData": "../../assets/data/mage.json",
+  "knightData": "../../assets/data/knight.json",
+  "mageData": "../../assets/data/mage.json",
 
-    "firetrollData": "../../assets/data/firetroll.json",
-    "icetrollData": "../../assets/data/icetroll.json",
-    "dragonData": "../../assets/data/dragon.json",
+  "firetrollData": "../../assets/data/firetroll.json",
+  "icetrollData": "../../assets/data/icetroll.json",
+  "dragonData": "../../assets/data/dragon.json",
 
-    "player": {
-        "health": 2000,
-        "baseDamage": 50,
-        "movementSpeed": 96,
-        "positionX": 0,
-        "positionY": 0
+  "player": {
+    "health": 2000,
+    "baseDamage": 50,
+    "movementSpeed": 96,
+    "positionX": 0,
+    "positionY": 0
+  },
+
+  "enemies": [
+    {
+      "type": "firetroll",
+      "baseDamage": 50,
+      "health": 200,
+      "movementSpeed": 64,
+      "positionX": 500,
+      "positionY": 200
     },
 
-    "enemies": [
+    {
+      "type": "icetroll",
+      "baseDamage": 50,
+      "health": 200,
+      "movementSpeed": 64,
+      "positionX": 500,
+      "positionY": 400
+    },
+
+    {
+      "type": "dragon",
+      "baseDamage": 100,
+      "health": 300,
+      "movementSpeed": 64,
+      "positionX": 250,
+      "positionY": 400
+    }
+  ],
+
+  "items": [
+    {
+      "type": "potion",
+      "image": "../../assets/sprites/potion.png",
+      "heal": 100,
+      "positionX": 200,
+      "positionY": 300
+    }
+  ],
+
+  "npcs": [
+    {
+      "npcId": 0,
+      "type": "mage",
+      "positionX": 500,
+      "positionY": 500,
+      "quests": [
         {
-            "type": "firetroll",
-            "baseDamage": 50,
-            "health": 200,
-            "movementSpeed": 64,
-            "positionX": 500,
-            "positionY": 200
+          "questId": 0,
+          "questType": "kill",
+          "name": "Kill the dragon",
+          "description": "The half-blind dragon keeps stealing our eggs! Go and kill it for us! If you do, I'll tell you where you can learn the secret of fire.",
+          "previousQuestId": null
         },
-
         {
-            "type": "icetroll",
-            "baseDamage": 50,
-            "health": 200,
-            "movementSpeed": 64,
-            "positionX": 500,
-            "positionY": 400
-        },
-
-        {
-            "type": "dragon",
-            "baseDamage": 100,
-            "health": 300,
-            "movementSpeed": 64,
-            "positionX": 250,
-            "positionY": 400
+          "questId": 1,
+          "type": "loot",
+          "name": "Fireman Sam",
+          "description": "There is a man who lives alone in the wilderness to the south. Find him and learn his secrets.",
+          "previousQuestId": 0
         }
-    ],
-
-    "items": [
-        {
-            "type": "potion",
-            "image": "../../assets/sprites/potion.png",
-            "heal": 100,
-            "positionX": 200,
-            "positionY": 300
-        }
-    ],
-
-    "npcs": [
-        {
-            "npcId": 0,
-            "type": "mage",
-            "positionX": 500,
-            "positionY": 500,
-            "questId": 0,
-            "questType": "kill",
-            "name": "Kill the dragon",
-            "description": "The half-blind dragon keeps stealing our eggs! Go and kill it for us!",
-            "previousQuestId": null
-        }
-    ]
+      ]
+    }
+  ]
 }
