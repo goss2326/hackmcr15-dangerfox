@@ -166,12 +166,15 @@
     <Compile Include="Modules\HomeModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="scripts\source\Components\Character.ts" />
     <TypeScriptCompile Include="scripts\source\Components\KillQuest.ts" />
     <TypeScriptCompile Include="scripts\source\Components\LootQuest.ts" />
     <TypeScriptCompile Include="scripts\source\Components\Item.ts" />
+    <TypeScriptCompile Include="scripts\source\Components\Potion.ts" />
     <TypeScriptCompile Include="scripts\source\Support\Collection.ts" />
     <TypeScriptCompile Include="scripts\source\Components\Inventory.ts" />
     <TypeScriptCompile Include="scripts\source\Components\Map.ts" />
