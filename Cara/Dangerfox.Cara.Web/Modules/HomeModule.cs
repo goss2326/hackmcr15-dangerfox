@@ -70,7 +70,7 @@ namespace Dangerfox.Cara.Web.Modules
                 resultModel.Message = "Unknown Exception: " + ex.Message;
             }
 
-            return Response.AsJson(model);
+            return Response.AsJson(resultModel);
         }
     }
 }

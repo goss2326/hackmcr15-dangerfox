@@ -277,6 +277,19 @@
                     this.items.Delete(n);
                 }
             }
+
+            this.game.input.keyboard.onUpCallback = key =>
+            {
+                if (key.key == "t")
+                {
+                    this.sendText("4thWall", "This is the voice of the mysterons!");
+                }
+            };
+
+            if (this.game.input.keyboard.isDown(Phaser.Keyboard.T))
+            {
+                //this.sendText("4thWall", "This is the voice of the mysterons");
+            }
         }
 
         public render()
@@ -390,8 +403,10 @@
             });
         }
 
-        private sendText(phoneNumber: string, from: string, message: string)
+        private sendText(from: string, message: string)
         {
+            var phoneNumber = $("#mobile-number").val();
+
             $.ajax({
                 method: "POST",
                 url: "/send-text",
@@ -403,9 +418,10 @@
                 dataType: "json",
                 async: true,
                 contentType: "application/json",
-                success: () =>
+                success: result =>
                 {
-                    //alert(response.Message);
+                    //this.game.debug.text(result.message, 50, 200, "#ffffff");
+                    $("#message").html(result.message);
                 },
                 error: () =>
                 {
