@@ -58242,7 +58242,6 @@ Phaser.RequestAnimationFrame.prototype = {
                 return _this.updateRAF(time);
             };
 
-            this._timeOutID = window.requestAnimationFrame(this._onLoop);
         }
 
     },

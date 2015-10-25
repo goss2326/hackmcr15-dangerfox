@@ -12,6 +12,7 @@
         private icetrollData: any;
         private dragonData: any;
         private itemData: any;
+        private backgroundMusic: any;
 
         private player: Components.Player;
         private enemies: Array<Components.Enemy>;
@@ -33,6 +34,7 @@
             this.map = new Components.Map(this.game);
             this.map.preload();
 
+            
             // change this for different player
             this.playerData = this.knightData;
 
@@ -144,6 +146,7 @@
                 //npc.quest = quest;
                 this.npcs[i] = npc;
             }
+            this.game.load.audio("backgroundMusic", ["assets/audio/01-intro.mp3"]);
         }
 
         public create()
@@ -152,7 +155,7 @@
             this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
             this.map.create();
-
+            
             // create the player
             this.player.create(
                 this.config.player.health,
@@ -268,6 +271,9 @@
             }
 
             this.game.camera.follow(this.player.sprite);
+            this.backgroundMusic = this.game.add.audio("backgroundMusic");
+            this.backgroundMusic.autoplay = true;
+            this.backgroundMusic.loopFull();
         }
 
         public update()
