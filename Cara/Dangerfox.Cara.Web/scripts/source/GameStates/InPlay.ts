@@ -27,101 +27,7 @@
 
         public preload()
         {
-            $.ajax({
-                method: "GET",
-                url: "../../assets/data/config.json",
-                dataType: "json",
-                async: false,
-                contentType: "application/json",
-                success: response =>
-                {
-                    this.config = response;
-                },
-                error: response1 =>
-                {
-                    alert("Unable to load config.");
-                }
-            });
-
-            $.ajax({
-                method: "GET",
-                url: this.config.knightData,
-                dataType: "json",
-                async: false,
-                contentType: "application/json",
-                success: response =>
-                {
-                    this.knightData = response;
-                },
-                error: response1 =>
-                {
-                    alert("Unable to load knight data.");
-                }
-            });
-
-            $.ajax({
-                method: "GET",
-                url: this.config.mageData,
-                dataType: "json",
-                async: false,
-                contentType: "application/json",
-                success: response =>
-                {
-                    this.mageData = response;
-                },
-                error: response1 =>
-                {
-                    alert("Unable to load mage data.");
-                }
-            });
-
-            $.ajax({
-                method: "GET",
-                url: this.config.firetrollData,
-                dataType: "json",
-                async: false,
-                contentType: "application/json",
-                success: response =>
-                {
-                    this.firetrollData = response;
-                },
-                error: response1 =>
-                {
-                    alert("Unable to load firetroll data.");
-                }
-            });
-
-            $.ajax({
-                method: "GET",
-                url: this.config.icetrollData,
-                dataType: "json",
-                async: false,
-                contentType: "application/json",
-                success: response =>
-                {
-                    this.icetrollData = response;
-                },
-                error: response1 =>
-                {
-                    alert("Unable to load icetroll data.");
-                }
-            });
-
-            $.ajax({
-                method: "GET",
-                url: this.config.dragonData,
-                dataType: "json",
-                async: false,
-                contentType: "application/json",
-                success: response =>
-                {
-                    this.dragonData = response;
-                },
-                error: response1 =>
-                {
-                    alert("Unable to load dragon data.");
-                }
-            });
+            this.loadJsonData();
 
             this.map = new Components.Map(this.game);
             this.map.preload();
@@ -307,6 +213,129 @@
 
                 enemy.render();
             }
+        }
+
+        private loadJsonData()
+        {
+            $.ajax({
+                method: "GET",
+                url: "../../assets/data/config.json",
+                dataType: "json",
+                async: false,
+                contentType: "application/json",
+                success: response =>
+                {
+                    this.config = response;
+                },
+                error: () =>
+                {
+                    alert("Unable to load config.");
+                }
+            });
+
+            $.ajax({
+                method: "GET",
+                url: this.config.knightData,
+                dataType: "json",
+                async: false,
+                contentType: "application/json",
+                success: response =>
+                {
+                    this.knightData = response;
+                },
+                error: () =>
+                {
+                    alert("Unable to load knight data.");
+                }
+            });
+
+            $.ajax({
+                method: "GET",
+                url: this.config.mageData,
+                dataType: "json",
+                async: false,
+                contentType: "application/json",
+                success: response =>
+                {
+                    this.mageData = response;
+                },
+                error: () =>
+                {
+                    alert("Unable to load mage data.");
+                }
+            });
+
+            $.ajax({
+                method: "GET",
+                url: this.config.firetrollData,
+                dataType: "json",
+                async: false,
+                contentType: "application/json",
+                success: response =>
+                {
+                    this.firetrollData = response;
+                },
+                error: () =>
+                {
+                    alert("Unable to load firetroll data.");
+                }
+            });
+
+            $.ajax({
+                method: "GET",
+                url: this.config.icetrollData,
+                dataType: "json",
+                async: false,
+                contentType: "application/json",
+                success: response =>
+                {
+                    this.icetrollData = response;
+                },
+                error: () =>
+                {
+                    alert("Unable to load icetroll data.");
+                }
+            });
+
+            $.ajax({
+                method: "GET",
+                url: this.config.dragonData,
+                dataType: "json",
+                async: false,
+                contentType: "application/json",
+                success: response =>
+                {
+                    this.dragonData = response;
+                },
+                error: () =>
+                {
+                    alert("Unable to load dragon data.");
+                }
+            });
+        }
+
+        private sendText(phoneNumber: string, from: string, message: string)
+        {
+            $.ajax({
+                method: "POST",
+                url: "/send-text",
+                data: JSON.stringify({
+                    "PhoneNumber": phoneNumber,
+                    "From": from,
+                    "Message": message
+                }),
+                dataType: "json",
+                async: true,
+                contentType: "application/json",
+                success: response =>
+                {
+                    //alert(response.Message);
+                },
+                error: () =>
+                {
+                    alert("Unable to send text data.");
+                }
+            });
         }
     }
 }
