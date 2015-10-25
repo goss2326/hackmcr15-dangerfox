@@ -12,7 +12,7 @@
         public sprite: Phaser.Sprite;
         public attacking: boolean;
 
-        constructor(protected game: Phaser.Game, private spriteKey: string)
+        constructor(protected game: Phaser.Game, public spriteKey: string)
         {
         }
 

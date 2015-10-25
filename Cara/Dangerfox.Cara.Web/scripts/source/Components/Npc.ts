@@ -38,8 +38,9 @@
             type: string,
             name: string,
             description: string,
+            completeMessage: string,
             previousQuestId: number,
-            targetId: number,
+            target: string,
             amount: number)
         {
             switch (type)
@@ -49,8 +50,9 @@
                     quest1.questId = questId;
                     quest1.name = name;
                     quest1.description = description;
+                    quest1.completeMessage = completeMessage;
                     quest1.previousQuestId = previousQuestId;
-                    quest1.targetId = targetId;
+                    quest1.targetId = target;
                     quest1.amount = amount;
                     this.quests.Add(quest1);
                     break;
@@ -60,8 +62,9 @@
                     quest2.questId = questId;
                     quest2.name = name;
                     quest2.description = description;
+                    quest2.completeMessage = completeMessage;
                     quest2.previousQuestId = previousQuestId;
-                    quest2.itemId = targetId;
+                    quest2.itemId = target;
                     quest2.amount = amount;
                     this.quests.Add(quest2);
                     break;
@@ -71,20 +74,21 @@
             }
         }
 
-        public getNextQuest(): Quest
+        public getNextQuest(player: Player): Quest
         {
             if (this.quests.Count() > 0)
             {
                 var quest = this.quests.GetItem(0);
 
-                this.quests.Delete(0);
+                if (quest.previousQuestId === null || player.hasCompletedQuest(quest.previousQuestId))
+                {
+                    this.quests.Delete(0);
 
-                return quest;
+                    return quest;
+                }
             }
-            else
-            {
-                return null;
-            }
+
+            return null;
         }
     }
 }

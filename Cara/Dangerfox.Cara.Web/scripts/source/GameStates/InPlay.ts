@@ -253,6 +253,7 @@
                         questData.type,
                         questData.name,
                         questData.description,
+                        questData.completeMessage,
                         questData.previousQuestId,
                         questData.targetId,
                         questData.amount);
@@ -290,14 +291,14 @@
                 enemy.update(this.player);
             }
 
-            for (var i: number = 0; i < this.npcs.length; ++i)
-            {
-                var npc = this.npcs[i];
-                if (this.game.physics.arcade.collide(npc.sprite, this.player.sprite))
-                {
-                    this.game.debug.text("hit npc", 90, 500);
-                }
-            }
+            //for (var i: number = 0; i < this.npcs.length; ++i)
+            //{
+            //    var npc = this.npcs[i];
+            //    if (this.game.physics.arcade.collide(npc.sprite, this.player.sprite))
+            //    {
+            //        this.game.debug.text("hit npc", 90, 500);
+            //    }
+            //}
 
             for (var n: number = 0; n < this.items.Count(); n++)
             {
@@ -314,7 +315,7 @@
             {
                 if (key.key == "t")
                 {
-                    this.sendText("4thWall", "This is the voice of the mysterons!");
+                    Support.SmsHelper.sendText("This is the voice of the mysterons!");
                 }
             }
 
@@ -328,13 +329,13 @@
 
                     if (distance <= 100)
                     {
-                        var nextQuest = npc.getNextQuest();
+                        var nextQuest = npc.getNextQuest(this.player);
 
                         if (nextQuest !== null)
                         {
                             this.player.receiveQuest(nextQuest);
 
-                            this.sendText("4thWall", "Quest: "
+                            Support.SmsHelper.sendText("Quest: "
                                 + nextQuest.name + " - Description: "
                                 + nextQuest.description);
 
@@ -459,33 +460,6 @@
                 error: () =>
                 {
                     alert("Unable to load dragon data.");
-                }
-            });
-        }
-
-        private sendText(from: string, message: string)
-        {
-            var phoneNumber = $("#mobile-number").val();
-
-            $.ajax({
-                method: "POST",
-                url: "/send-text",
-                data: JSON.stringify({
-                    "PhoneNumber": phoneNumber,
-                    "From": from,
-                    "Message": message
-                }),
-                dataType: "json",
-                async: true,
-                contentType: "application/json",
-                success: result =>
-                {
-                    //this.game.debug.text(result.message, 50, 200, "#ffffff");
-                    $("#message").html(result.message);
-                },
-                error: () =>
-                {
-                    alert("Unable to send text data.");
                 }
             });
         }

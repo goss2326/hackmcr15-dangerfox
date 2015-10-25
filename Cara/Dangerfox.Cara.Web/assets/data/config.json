@@ -1,83 +1,192 @@
 ﻿{
-  "knightData": "../../assets/data/knight.json",
-  "mageData": "../../assets/data/mage.json",
+    "knightData": "../../assets/data/knight.json",
+    "mageData": "../../assets/data/mage.json",
 
-  "firetrollData": "../../assets/data/firetroll.json",
-  "icetrollData": "../../assets/data/icetroll.json",
-  "dragonData": "../../assets/data/dragon.json",
+    "firetrollData": "../../assets/data/firetroll.json",
+    "icetrollData": "../../assets/data/icetroll.json",
+    "dragonData": "../../assets/data/dragon.json",
 
-  "player": {
-    "health": 2000,
-    "baseDamage": 50,
-    "movementSpeed": 96,
-    "positionX": 2112,
-    "positionY": 4704
-  },
-
-  "enemies": [
-    {
-      "type": "firetroll",
-            "experiencePoints": 50,
-      "baseDamage": 50,
-            "health": 150,
-      "movementSpeed": 64,
-      "positionX": 500,
-      "positionY": 200
+    "player": {
+        "health": 2000,
+        "baseDamage": 50,
+        "movementSpeed": 128,
+        "positionX": 2112,
+        "positionY": 4704
     },
-
-    {
-      "type": "icetroll",
-            "experiencePoints": 50,
-      "baseDamage": 50,
-            "health": 150,
-      "movementSpeed": 64,
-      "positionX": 500,
-      "positionY": 400
-    },
-
-    {
-      "type": "dragon",
-            "experiencePoints": 150,
-      "baseDamage": 100,
-      "health": 300,
-      "movementSpeed": 64,
-      "positionX": 250,
-      "positionY": 400
-    }
-  ],
-
-  "items": [
-    {
-      "type": "potion",
-      "image": "../../assets/sprites/potion.png",
-      "heal": 500,
-      "positionX": 200,
-      "positionY": 300
-    }
-  ],
-
-  "npcs": [
-    {
-      "npcId": 0,
-      "type": "mage",
-      "positionX": 1728,
-      "positionY": 5024,
-      "quests": [
+    "enemies": [
         {
-          "questId": 0,
-          "questType": "kill",
-          "name": "Kill the dragon",
-          "description": "The half-blind dragon keeps stealing our eggs! Go and kill it for us! If you do, I'll tell you where you can learn the secret of fire.",
-          "previousQuestId": null
+            "type": "firetroll",
+            "experiencePoints": 50,
+            "baseDamage": 50,
+            "health": 150,
+            "movementSpeed": 64,
+            "positionX": 1152,
+            "positionY": 5632
         },
         {
-          "questId": 1,
-          "type": "loot",
-          "name": "Fireman Sam",
-          "description": "There is a man who lives alone in the wilderness to the south. Find him and learn his secrets.",
-          "previousQuestId": 0
+            "type": "firetroll",
+            "experiencePoints": 50,
+            "baseDamage": 50,
+            "health": 150,
+            "movementSpeed": 64,
+            "positionX": 832,
+            "positionY": 5664
+        },
+        {
+            "type": "firetroll",
+            "experiencePoints": 50,
+            "baseDamage": 50,
+            "health": 150,
+            "movementSpeed": 64,
+            "positionX": 1536,
+            "positionY": 5824
+        },
+        {
+            "type": "firetroll",
+            "experiencePoints": 50,
+            "baseDamage": 50,
+            "health": 150,
+            "movementSpeed": 64,
+            "positionX": 1568,
+            "positionY": 6144
+        },
+        {
+            "type": "firetroll",
+            "experiencePoints": 50,
+            "baseDamage": 50,
+            "health": 150,
+            "movementSpeed": 64,
+            "positionX": 1184,
+            "positionY": 6112
+        },
+        {
+            "type": "firetroll",
+            "experiencePoints": 50,
+            "baseDamage": 50,
+            "health": 150,
+            "movementSpeed": 64,
+            "positionX": 2080,
+            "positionY": 6016
+        },
+        {
+            "type": "firetroll",
+            "experiencePoints": 50,
+            "baseDamage": 50,
+            "health": 150,
+            "movementSpeed": 64,
+            "positionX": 2464,
+            "positionY": 5664
+        },
+        {
+            "type": "firetroll",
+            "experiencePoints": 50,
+            "baseDamage": 50,
+            "health": 150,
+            "movementSpeed": 64,
+            "positionX": 3040,
+            "positionY": 5632
+        },
+        {
+            "type": "firetroll",
+            "experiencePoints": 50,
+            "baseDamage": 50,
+            "health": 150,
+            "movementSpeed": 64,
+            "positionX": 2688,
+            "positionY": 6208
+        },
+        {
+            "type": "icetroll",
+            "experiencePoints": 50,
+            "baseDamage": 50,
+            "health": 150,
+            "movementSpeed": 64,
+            "positionX": 500,
+            "positionY": 400
+        },
+        {
+            "type": "dragon",
+            "experiencePoints": 150,
+            "baseDamage": 100,
+            "health": 300,
+            "movementSpeed": 64,
+            "positionX": 1024,
+            "positionY": 4160
+
+        },
+        {
+            "type": "dragon",
+            "experiencePoints": 150,
+            "baseDamage": 100,
+            "health": 300,
+            "movementSpeed": 64,
+            "positionX": 250,
+            "positionY": 400
         }
-      ]
-    }
-  ]
+    ],
+
+    "items": [
+        {
+            "type": "potion",
+            "image": "../../assets/sprites/potion.png",
+            "heal": 500,
+            "positionX": 2848,
+            "positionY": 6080
+
+        },
+        {
+            "type": "potion",
+            "image": "../../assets/sprites/potion.png",
+            "heal": 500,
+            "positionX": 2880,
+            "positionY": 6112
+
+        },
+        {
+            "type": "potion",
+            "image": "../../assets/sprites/potion.png",
+            "heal": 500,
+            "positionX": 200,
+            "positionY": 300
+        }
+    ],
+
+    "npcs": [
+        {
+            "npcId": 0,
+            "type": "mage",
+            "positionX": 1728,
+            "positionY": 5024,
+            "quests": [
+
+                {
+                    "questId": 0,
+                    "type": "kill",
+                    "name": "Kill the dragon",
+                    "description": "The half-blind dragon keeps stealing our eggs from the village square! Go and kill it for us! If you do, I'll tell you where you can learn the secret of fire.",
+                    "previousQuestId": null,
+                    "targetId": "dragon",
+                    "amount": 1,
+                    "completeMessage": "Huzzah! Our eggs are finally safe from the dragon."
+                },
+                {
+                    "questId": 1,
+                    "type": "kill",
+                    "name": "Kill the trolls",
+                    "description": "There are trolls in the wilderness! Please kill them so they stop baiting us on facebook!",
+                    "previousQuestId": 0,
+                    "targetId": "firetroll",
+                    "amount": 5,
+                    "completeMessage": "At last the trolls have been vanquised and our countryside is saved!"
+                },
+                {
+                    "questId": 2,
+                    "type": "loot",
+                    "name": "Fireman Sam",
+                    "description": "There is a man who lives alone in the wilderness to the south. Find him and learn his secrets.",
+                    "previousQuestId": 1
+                }
+            ]
+        }
+    ]
 }

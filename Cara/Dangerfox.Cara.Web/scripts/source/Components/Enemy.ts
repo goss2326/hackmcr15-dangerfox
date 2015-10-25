@@ -52,10 +52,12 @@
                     {
                         this.takeDamage(player.baseDamage / player.attackFps);
 
-                        if (!this.sprite.alive)
+                        if (!this.sprite.alive && this.experiencePoints > 0)
                         {
                             player.addExperience(this.experiencePoints);
                             this.experiencePoints = 0;
+
+                            player.updateQuestStatus(this);
                         }
                     }
                 }
