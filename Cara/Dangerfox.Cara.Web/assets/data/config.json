@@ -9,9 +9,9 @@
   "player": {
     "health": 2000,
     "baseDamage": 50,
-    "movementSpeed": 96,
-    "positionX": 0,
-    "positionY": 0
+    "movementSpeed": 192,
+    "positionX": 2112,
+    "positionY": 4704
   },
 
   "enemies": [
@@ -47,7 +47,7 @@
     {
       "type": "potion",
       "image": "../../assets/sprites/potion.png",
-      "heal": 100,
+      "heal": 500,
       "positionX": 200,
       "positionY": 300
     }
@@ -57,8 +57,8 @@
     {
       "npcId": 0,
       "type": "mage",
-      "positionX": 500,
-      "positionY": 500,
+      "positionX": 1728,
+      "positionY": 5024,
       "quests": [
         {
           "questId": 0,
