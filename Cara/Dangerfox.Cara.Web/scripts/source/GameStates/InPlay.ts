@@ -64,12 +64,13 @@
 
             for (i = 0; i < this.enemies.length; i++)
             {
+                var enemyData = this.config.enemies[i];
                 var enemy: Components.Enemy;
 
                 switch (this.config.enemies[i].type)
                 {
                     case "firetroll":
-                        enemy = new Components.Enemy(this.game, this.config.enemies[i].type);
+                        enemy = new Components.Enemy(this.game, enemyData.type, enemyData.experiencePoints);
 
                         enemy.preload(
                             this.firetrollData.spritesheet,
@@ -81,7 +82,7 @@
                         break;
 
                     case "icetroll":
-                        enemy = new Components.Enemy(this.game, this.config.enemies[i].type);
+                        enemy = new Components.Enemy(this.game, enemyData.type, enemyData.experiencePoints);
 
                         enemy.preload(
                             this.icetrollData.spritesheet,
@@ -93,7 +94,7 @@
                         break;
 
                     case "dragon":
-                        enemy = new Components.Enemy(this.game, this.config.enemies[i].type);
+                        enemy = new Components.Enemy(this.game, enemyData.type, enemyData.experiencePoints);
 
                         enemy.preload(
                             this.dragonData.spritesheet,

@@ -2,7 +2,7 @@
 {
     export class Enemy extends Character
     {
-        constructor(game: Phaser.Game, spriteKey: string)
+        constructor(game: Phaser.Game, spriteKey: string, public experiencePoints: number)
         {
             super(game, spriteKey);
         }
@@ -51,6 +51,12 @@
                     if (player.attacking)
                     {
                         this.takeDamage(player.baseDamage / player.attackFps);
+
+                        if (!this.sprite.alive)
+                        {
+                            player.addExperience(this.experiencePoints);
+                            this.experiencePoints = 0;
+                        }
                     }
                 }
                 else

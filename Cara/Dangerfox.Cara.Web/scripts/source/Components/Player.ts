@@ -2,14 +2,16 @@
 {
     export class Player extends Character
     {
+        private experience = 0;
+
         private inventory: Inventory;
         private quests: Support.Collection<Quest>;
 
         constructor(game: Phaser.Game)
         {
             super(game, "player");
-            this.inventory = new Inventory();
 
+            this.inventory = new Inventory();
             this.quests = new Support.Collection<Quest>();
         }
 
@@ -36,10 +38,11 @@
         public update()
         {
             this.game.debug.text("Player Health: " + this.health, 25, 25, "#ffffff");
+            this.game.debug.text("Experience Points: " + this.experience, 25, 50, "#ffffff");
 
             if (this.quests.Count() > 0)
             {
-                this.game.debug.text("Quest: " + this.quests.GetItem(0).description, 25, 50, "#ffffff");
+                this.game.debug.text("Quest: " + this.quests.GetItem(0).description, 25, 75, "#ffffff");
             }
 
             this.processInput();
@@ -57,11 +60,16 @@
 
         public usePotion(potion: Item)
         {
-            if (this.health < 2000)
+            if (this.health < this.maxHealth)
             {
                 this.health += potion.heal;
                 this.inventory.UseItem(potion);
             }
+        }
+
+        public addExperience(experience: number)
+        {
+            this.experience += experience;
         }
 
         private processInput()
@@ -162,7 +170,5 @@
                 this.idle(this.direction);
             }
         }
-
-
     }
 }

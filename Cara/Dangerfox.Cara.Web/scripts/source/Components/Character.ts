@@ -2,6 +2,7 @@
 {
     export abstract class Character
     {
+        public maxHealth: number;
         public health: number;
         public baseDamage: number;
         public attackFps: number;
@@ -34,6 +35,7 @@
             startPosition: Phaser.Point,
             spriteData: any)
         {
+            this.maxHealth = health;
             this.health = health;
             this.baseDamage = baseDamage;
             this.attackFps = spriteData.animations.attackFps;

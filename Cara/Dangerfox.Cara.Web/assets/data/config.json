@@ -10,15 +10,16 @@
     "health": 2000,
     "baseDamage": 50,
     "movementSpeed": 96,
-    "positionX": 0,
-    "positionY": 0
+    "positionX": 2112,
+    "positionY": 4704
   },
 
   "enemies": [
     {
       "type": "firetroll",
+            "experiencePoints": 50,
       "baseDamage": 50,
-      "health": 200,
+            "health": 150,
       "movementSpeed": 64,
       "positionX": 500,
       "positionY": 200
@@ -26,8 +27,9 @@
 
     {
       "type": "icetroll",
+            "experiencePoints": 50,
       "baseDamage": 50,
-      "health": 200,
+            "health": 150,
       "movementSpeed": 64,
       "positionX": 500,
       "positionY": 400
@@ -35,6 +37,7 @@
 
     {
       "type": "dragon",
+            "experiencePoints": 150,
       "baseDamage": 100,
       "health": 300,
       "movementSpeed": 64,
@@ -47,7 +50,7 @@
     {
       "type": "potion",
       "image": "../../assets/sprites/potion.png",
-      "heal": 100,
+      "heal": 500,
       "positionX": 200,
       "positionY": 300
     }
@@ -57,8 +60,8 @@
     {
       "npcId": 0,
       "type": "mage",
-      "positionX": 500,
-      "positionY": 500,
+      "positionX": 1728,
+      "positionY": 5024,
       "quests": [
         {
           "questId": 0,
