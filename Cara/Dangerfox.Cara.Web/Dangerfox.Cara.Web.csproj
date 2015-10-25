@@ -184,6 +184,7 @@
     <TypeScriptCompile Include="scripts\source\GameStates\InPlay.ts" />
     <TypeScriptCompile Include="scripts\source\program.ts" />
     <TypeScriptCompile Include="scripts\source\Support\Direction.ts" />
+    <TypeScriptCompile Include="scripts\source\Support\SmsHelper.ts" />
     <TypeScriptCompile Include="scripts\typings\phaser\p2.d.ts" />
     <TypeScriptCompile Include="scripts\typings\phaser\phaser.comments.d.ts" />
     <TypeScriptCompile Include="scripts\typings\phaser\pixi.comments.d.ts" />

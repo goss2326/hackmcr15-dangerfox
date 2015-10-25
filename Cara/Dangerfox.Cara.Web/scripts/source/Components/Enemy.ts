@@ -56,6 +56,19 @@
                         {
                             player.addExperience(this.experiencePoints);
                             this.experiencePoints = 0;
+
+                            // Work out if we have completed a quest.
+                            var questId = player.getCurrentQuestId();
+
+                            if (questId > -1)
+                            {
+                                if (questId === 0 && this.spriteKey === "dragon")
+                                {
+                                    player.setCurrentQuestComplete(questId);
+
+                                    Support.SmsHelper.sendText("Huzzah! Our eggs are finally safe from the dragon.5");
+                                }
+                            }
                         }
                     }
                 }
