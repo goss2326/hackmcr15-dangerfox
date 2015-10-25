@@ -169,8 +169,6 @@
   <ItemGroup />
   <ItemGroup>
     <TypeScriptCompile Include="scripts\source\Components\Character.ts" />
-    <TypeScriptCompile Include="scripts\source\Components\KillQuest.ts" />
-    <TypeScriptCompile Include="scripts\source\Components\LootQuest.ts" />
     <TypeScriptCompile Include="scripts\source\Components\Item.ts" />
     <TypeScriptCompile Include="scripts\source\Support\Collection.ts" />
     <TypeScriptCompile Include="scripts\source\Components\Inventory.ts" />
@@ -180,7 +178,6 @@
     <TypeScriptCompile Include="scripts\source\Components\Quest.ts" />
     <TypeScriptCompile Include="scripts\source\GameStates\InPlay.ts" />
     <TypeScriptCompile Include="scripts\source\program.ts" />
-    <TypeScriptCompile Include="scripts\source\Support\Direction.ts" />
     <TypeScriptCompile Include="scripts\typings\phaser\p2.d.ts" />
     <TypeScriptCompile Include="scripts\typings\phaser\phaser.comments.d.ts" />
     <TypeScriptCompile Include="scripts\typings\phaser\pixi.comments.d.ts" />

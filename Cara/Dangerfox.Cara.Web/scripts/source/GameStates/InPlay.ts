@@ -34,8 +34,8 @@
 
             // change this for different player
             this.playerData = this.knightData;
-
-            for (var i: number = 0; i < this.config.items.length; i++) {
+            var i: number;
+            for (i = 0; i < this.config.items.length; i++) {
                 var item = new Components.Item(this.game, "potion");
                 item.preload(
                     this.config.items[i].image
@@ -53,7 +53,7 @@
 
             this.enemies = new Array<Components.Enemy>(this.config.enemies.length);
             
-            for (var i: number = 0; i < this.enemies.length; i++)
+            for (i = 0; i < this.enemies.length; i++)
             {
                 var enemy: Components.Enemy;
 
@@ -67,6 +67,8 @@
                             this.firetrollData.spriteWidth,
                             this.firetrollData.spriteHeight
                         );
+
+                        this.enemies[i] = enemy;
                         break;
 
                     case "icetroll":
@@ -77,6 +79,8 @@
                             this.icetrollData.spriteWidth,
                             this.icetrollData.spriteHeight
                         );
+
+                        this.enemies[i] = enemy;
                         break;
 
                     case "dragon":
@@ -87,10 +91,10 @@
                             this.dragonData.spriteWidth,
                             this.dragonData.spriteHeight
                         );
+
+                        this.enemies[i] = enemy;
                         break;
                 }
-
-                this.enemies[i] = enemy;
             }
         }
 
@@ -117,7 +121,8 @@
             );
 
             // create the enemies
-            for (var i: number = 0; i < this.enemies.length; i++)
+            var i: number;
+            for (i = 0; i < this.enemies.length; i++)
             {
                 var enemyData = this.config.enemies[i];
                 switch (enemyData.type)
@@ -165,7 +170,7 @@
                         break;
                 }
             }
-            for (var i: number = 0; i < this.config.items.length; i++) {
+            for (i = 0; i < this.config.items.length; i++) {
                 this.items.GetItem(i).create(
                     this.config.items[i].heal,
                     new Phaser.Point(
@@ -327,7 +332,7 @@
                 dataType: "json",
                 async: true,
                 contentType: "application/json",
-                success: response =>
+                success: () =>
                 {
                     //alert(response.Message);
                 },

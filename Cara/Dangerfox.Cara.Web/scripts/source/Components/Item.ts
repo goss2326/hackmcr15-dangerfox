@@ -31,7 +31,6 @@
                 this.spriteKey
             );
 
-
             // configure physics
             this.game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
             this.sprite.body.collideWorldBounds = true;

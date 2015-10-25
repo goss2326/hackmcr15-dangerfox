@@ -9,10 +9,30 @@
         public previousQuestId: number;
         public isActive: boolean;
 
-        constructor(game: Phaser.Game)
+        constructor(private game: Phaser.Game)
         {
         }
+    }
 
+    export class KillQuest extends Quest
+    {
+        public targetId: number;
+        public amount: number;
 
+        constructor(game: Phaser.Game)
+        {
+            super(game);
+        }
+    }
+
+    export class LootQuest extends Quest
+    {
+        public itemId: number;
+        public amount: number;
+
+        constructor(game: Phaser.Game)
+        {
+            super(game);
+        }
     }
 }
