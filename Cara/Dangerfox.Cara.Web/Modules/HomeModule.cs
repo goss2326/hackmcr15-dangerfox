@@ -14,13 +14,47 @@ namespace Dangerfox.Cara.Web.Modules
             //this.RequiresAuthentication();
 
             Get["/"] = _ => View["index"];
+            Post["/"] = _ => PostRoot();
 
             Post["/send-text"] = _ => SendText();
+        }
+
+        private object PostRoot()
+        {
+            var mobileNumber = (string)Request.Form["mobileNumber"];
+            if (String.IsNullOrWhiteSpace(mobileNumber))
+            {
+                ViewBag.ErrorMessage = "A mobile number is required to play.";
+
+                return View["index"];
+            }
+
+            var trySend = Send(mobileNumber, "4thWall", "Welcome to the Fourth Wall! The world is under siege by an evil dictator. " +
+                "You must travel the land in order to find ways to breach the four walls of security and brave the dungeon of evil.");
+
+            if (!trySend.Success)
+            {
+                ViewBag.ErrorMessage = trySend.Message;
+
+                return View["index"];
+            }
+
+            ViewBag.MobileNumber = mobileNumber;
+
+            return View["game"];
         }
 
         private object SendText()
         {
             var model = this.Bind<SendTextModel>();
+
+            var resultModel = Send(model.PhoneNumber, model.From, model.Message);
+
+            return Response.AsJson(resultModel);
+        }
+
+        private ResultModel Send(string phoneNumber, string from, string message)
+        {
             var resultModel = new ResultModel();
 
             try
@@ -29,9 +63,9 @@ namespace Dangerfox.Cara.Web.Modules
 
                 var sms = new SMS
                 {
-                    To = model.PhoneNumber,
-                    From = model.From,
-                    Message = model.Message
+                    To = phoneNumber,
+                    From = from,
+                    Message = message
                 };
 
                 var result = api.Send(sms);
@@ -39,7 +73,7 @@ namespace Dangerfox.Cara.Web.Modules
                 if (result.Success)
                 {
                     resultModel.Message = $"SMS Sent to {result.SMS.To}. Clockwork ID: {result.ID}";
-                    result.Success = true;
+                    resultModel.Success = true;
                 }
                 else
                 {
@@ -70,7 +104,7 @@ namespace Dangerfox.Cara.Web.Modules
                 resultModel.Message = "Unknown Exception: " + ex.Message;
             }
 
-            return Response.AsJson(model);
+            return resultModel;
         }
     }
 }

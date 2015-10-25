@@ -1,0 +1,8 @@
+﻿﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase
+@{Layout = "Views/_layouts/_master.cshtml";}
+
+<input type="hidden" id="mobile-number" value="@ViewBag.MobileNumber" />
+<div id="game-content"></div>
+
+
+@Html.ScriptBundle("core")

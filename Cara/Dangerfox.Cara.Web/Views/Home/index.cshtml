@@ -1,4 +1,12 @@
 ﻿﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase
 @{Layout = "Views/_layouts/_master.cshtml";}
 
-<div id="game-content"></div>
+<form method="post">
+    <p>
+        <span>Please Enter Your Mobile Number For Added Fun:</span>
+        <input type="tel" id="mobile-number" name="mobileNumber" />
+    </p>
+    <p id="message">@ViewBag.ErrorMessage</p>
+    
+    <button type="submit" value="Let's Play!">Let's Play!</button>
+</form>
