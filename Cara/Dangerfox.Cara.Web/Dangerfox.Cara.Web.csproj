@@ -123,6 +123,7 @@
     <Content Include="assets\sprites\mage.png" />
     <Content Include="assets\sprites\oldman.png" />
     <Content Include="assets\sprites\potion.png" />
+    <Content Include="assets\sprites\redgem.png" />
     <Content Include="assets\tilesets\logs_tile.png" />
     <Content Include="assets\tilesets\map_tiles.png" />
     <Content Include="packages.config" />
