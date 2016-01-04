@@ -29,7 +29,7 @@ namespace Dangerfox.Cara.Web.Configuration
                 .Add("~/scripts/lib/jquery/jquery-2.1.4.js")
 
                 // phaser
-                .Add("~/scripts/lib/phaser/phaser.js")
+                .Add("~/scripts/lib/phaser/phaser.min.js")
 
                 // game
                 .Add("~/scripts/source/game.js")
